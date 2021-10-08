@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+- Create an array of at least 10 objects with a word and its definition
+- Create a function that will loop through the array of random object and store it in useState
+- Use useEffect to make API call on page load and a subscription to Firebase
+    - In onValue, update useState that was created to store each user-score object
+- Use state as a placeholder for rel_hom parameter so whatever is stored in state after we have looped through the array will replace the placeholder
+- The word + definition we get back after the API call will be stored in another state
+- Store the object of word-definition that we get from the API call and another object of word-definition from the array we manually put in an another array 
+- Loop through the new array to randomly choose an object (word-definition)
+- Store whatever we get in state 
+- Print whatever is stored in state on the page
+- Create function to pass to onClick which will have a conditional statement to determine if definition matches the word
+- Create another state to keep track of score 
+- Inside the onClick function, update state if the word-definition match
+- Print a message for user to let them know if the scored or not
+- Have a progress bar that will get updated after each question
+- Once all 10 questions are answered, use CSS animation to alert the user that they have finished
+- Create a database to store user name and score
+- Create a form for user to input their name, store user input and score in state
+- Create function to pass to onSubmit, which will push data to firebase
+- Get that data (user name and score) back from firebase and print on the page (scoreboard)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ERROR HANDLING
+- For API error handling, use a conditional statement to check status of API, if status is not 200, render an error message
+- For Firebase, add 'required' property for input element 
