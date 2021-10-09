@@ -1,8 +1,8 @@
 import './App.css';
 import axios from 'axios';
+import Display from './Display.js';
 import { useState, useEffect } from 'react';
 
-// Sorry Cal . It is not working now:)
 
 function App() {
   const randomWords = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
@@ -10,16 +10,19 @@ function App() {
   //array with 10 objects: 10 homophones with 10 definitions;
 
   const [word, setWord] = useState('');
-  const [noDef, setNoDef] = useState('');
+  const [apiWord, setApiWord] = useState('');
 
-  const randomize = (dfdf) => {
-    const random = Math.floor(Math.random() * dfdf.length);
+  const randomize = (randomArray) => {
+    const random = Math.floor(Math.random() * randomArray.length);
     return random
   }
 
   useEffect(() => {
 
     const randomNum = randomize(randomWords);
+    const currentWord = randomWords[randomNum];
+    setApiWord(currentWord);
+
 
     axios({
       url: 'https://api.datamuse.com/words',
@@ -27,26 +30,21 @@ function App() {
       dataResponse: 'json',
       params: {
         md: "d",
-        rel_hom: randomWords[randomNum],
+        rel_hom: currentWord,
       }
     }).then(res => {
-      // need results at least 10 obj.
-      // console.log(res);
       const wordWithDefinition = res.data.filter(res => res.defs);
-      const wordWithoutDefinition = res.data.filter(res => !res.defs);
-      const randomNum = randomize(wordWithDefinition);
-      const noRandomNum = randomize(wordWithoutDefinition);
-      setWord(wordWithDefinition[randomNum].word);
-      setNoDef(wordWithoutDefinition[noRandomNum].word);
+      setWord(wordWithDefinition[0].word)
     });
   }, []);
+
 
   return (
 
     <div className="App">
       <h1>What Do You No?</h1>
+      <button>{apiWord}</button>
       <button>{word}</button>
-      <button>{noDef}</button>
     </div>
   );
 }
