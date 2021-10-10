@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import Display from './Display.js';
+import Definition from './Definition.js';
 import { useState, useEffect } from 'react';
 
 
@@ -11,6 +11,8 @@ function App() {
 
   const [word, setWord] = useState('');
   const [apiWord, setApiWord] = useState('');
+  const [combinedWords, setCombinedWords] = useState([]);
+  const [sdf , setSdf] = useState([])
 
   const randomize = (randomArray) => {
     const random = Math.floor(Math.random() * randomArray.length);
@@ -33,18 +35,38 @@ function App() {
         rel_hom: currentWord,
       }
     }).then(res => {
-      const wordWithDefinition = res.data.filter(res => res.defs);
+      // console.log(res.data);
+      const wordWithDefinition = res.data.filter(res => res.defs); 
       setWord(wordWithDefinition[0].word)
+      
+      const combinedWordsArray = [];
+      combinedWordsArray.push(currentWord, wordWithDefinition[0].word);
+      setCombinedWords(combinedWordsArray);
+
+      // const data = combinedWordsArray.filter(res => res.defs);
+      
+
     });
   }, []);
 
-
+  // console.log(sdf);
   return (
 
     <div className="App">
       <h1>What Do You No?</h1>
       <button>{apiWord}</button>
       <button>{word}</button>
+
+      
+        <Definition 
+          combinedWordsArray={combinedWords}
+          randomizer={randomize}
+          sdf={sdf}
+          setSdf={setSdf}
+        />
+     
+
+      {/* <p> {definition}</p> */}
     </div>
   );
 }
