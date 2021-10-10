@@ -1,30 +1,27 @@
-// import axios from 'axios';
-// import { useEffect } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
-// const Display = ({ data }) => {
+const Display = () => {
 
-//     useEffect(() => {
-//         console.log(data.word);
-//         // console.log(data.defs);
-//         axios({
-//             url: 'https://api.datamuse.com/words',
-//             method: 'GET',
-//             dataResponse: 'json',
-//             params: {
-//                 md: "d",
-//                 rel_hom: data.word
-//             }
-//         }).then(res => {
-//             console.log(res.data);
+    useEffect(() => {
+        // console.log(data.word);
+        // console.log(data.defs);
+        axios({
+            url: `https://api.dictionaryapi.dev/api/v2/entries/en/prop`,
+            method: "GET",
+            dataResponse: "json",
 
-//         });
+        }).then(res => {
+            console.log(res);
 
-//     })
-//     return (
-//         <div>
-//             <h2>asdasd</h2>
-//         </div>
-//     )
-// }
+        });
 
-// export default Display;
+    })
+    return (
+        <div>
+            <h2>asdasd</h2>
+        </div>
+    )
+}
+
+export default Display;

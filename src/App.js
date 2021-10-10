@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import Display from './Display.js';
+import Definition from './Definition.js';
 import { useState, useEffect } from 'react';
 
 
@@ -10,7 +10,11 @@ function App() {
   //array with 10 objects: 10 homophones with 10 definitions;
 
   const [word, setWord] = useState('');
+  const [definition, setDefinition] = useState('')
   const [apiWord, setApiWord] = useState('');
+  const [combinedWords, setCombinedWords] = useState([]);
+
+
 
   const randomize = (randomArray) => {
     const random = Math.floor(Math.random() * randomArray.length);
@@ -23,7 +27,6 @@ function App() {
     const currentWord = randomWords[randomNum];
     setApiWord(currentWord);
 
-
     axios({
       url: 'https://api.datamuse.com/words',
       method: 'GET',
@@ -34,10 +37,11 @@ function App() {
       }
     }).then(res => {
       const wordWithDefinition = res.data.filter(res => res.defs);
+      console.log(wordWithDefinition)
       setWord(wordWithDefinition[0].word)
-    });
+      setDefinition(wordWithDefinition[0].defs[0])
+    })
   }, []);
-
 
   return (
 
@@ -45,6 +49,13 @@ function App() {
       <h1>What Do You No?</h1>
       <button>{apiWord}</button>
       <button>{word}</button>
+      <p>{definition}</p>
+      {/* <Definition
+        combinedWordsArray={combinedWords[Math.floor(Math.random() * combinedWords.length)]}
+        randomizer={randomize}
+      /> */}
+
+      {/* <p> {definition}</p> */}
     </div>
   );
 }
