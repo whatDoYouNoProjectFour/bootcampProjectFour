@@ -9,9 +9,8 @@ function App() {
   //array with 10 objects: 10 homophones with 10 definitions;
 
   // const [randomWord, setRandomWord] = useState('')
-  const [definition, setDefinition] = useState('')
-  const [combinedWords, setCombinedWords] = useState([]);
-
+  const [definition, setDefinition] = useState('');
+  const [combinedWords, setCombinedWords] = useState([])
 
 
   const randomize = (randomArray) => {
@@ -19,23 +18,6 @@ function App() {
     return random
   }
 
-  // random word api 
-  // https://random-word-api.herokuapp.com/word?number=20
-
-  // useEffect(() => {
-  //   axios({
-  //     url: 'https://random-word-api.herokuapp.com/word?number=20',
-  //     method: 'GET',
-  //     dataResponse: 'json'
-  //   }).then(res => {
-  //     const apiWords = res.data[1];
-  //     // console.log(apiWords);
-  //     setRandomWord(apiWords);
-  //   })
-
-  // }, [])
-
-  // console.log(randomWord);
   useEffect(() => {
 
     const randomNum = randomize(randomWords);
@@ -50,23 +32,34 @@ function App() {
         rel_hom: currentWord,
       }
     }).then(res => {
-      console.log(res)
       const wordWithDefinition = res.data.filter(res => res.defs);
-      console.log(wordWithDefinition);
 
       setDefinition(wordWithDefinition[0].defs[0]);
-      let unshuffled = [wordWithDefinition[0].word + `(data from api)`, currentWord]
+      let unshuffled = [wordWithDefinition[0].word, currentWord]
       // added sort property to use sort array built-in function.
-      let shuffled = unshuffled.map(val => ({ val, sort: Math.random() }))
+      let shuffled = unshuffled.map(val => {
+        if (wordWithDefinition[0].word === val) {
+          return ({
+            val,
+            definition: wordWithDefinition[0].defs[0],
+            sort: Math.random(),
+          })
+        } else {
+          return ({
+            val,
+            sort: Math.random(),
+          })
+        }
+      })
         // shuffled by sort value
         .sort((a, b) => a.sort - b.sort)
-        // return only value which is 'word' to shuffled variable.
-        .map(({ val }) => val)
-      // console.log(shuffled);    check with this console.log
-      setCombinedWords(shuffled)
+
+      //   // return only value which is 'word' to shuffled variable.
+      // .map(({ val, definition }) => val, definition)
+      setCombinedWords(...combinedWords, shuffled);
     })
   }, []);
-
+  // console.log(combinedWords[0].val, combinedWords[1].val)
   console.log(combinedWords);
 
   return (
@@ -74,8 +67,19 @@ function App() {
     <div className="App">
 
       <h1>What Do You No?</h1>
-      <button>{combinedWords[0]}</button>
-      <button>{combinedWords[1]}</button>
+
+      {
+        combinedWords.map((res, index) => {
+          return (
+            <button key={index}>
+              {res.val}
+            </button>
+          )
+        })
+      }
+
+      {/* <button>{combinedWords[0].val}</button>
+      <button>{combinedWords[1].val}</button> */}
       <p>{definition}</p>
     </div>
   );
