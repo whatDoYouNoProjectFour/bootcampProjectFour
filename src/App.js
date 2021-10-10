@@ -1,6 +1,7 @@
 import './App.css';
 import axios from 'axios';
 import Footer from './Footer';
+import Score from './Score';
 import { useState, useEffect } from 'react';
 
 
@@ -34,7 +35,6 @@ function App() {
         rel_hom: currentWord,
       }
     }).then(res => {
-      console.log(res)
       const wordWithDefinition = res.data.filter(res => res.defs);
       console.log(wordWithDefinition);
 
@@ -60,6 +60,7 @@ function App() {
       <button>{combinedWords[0]}</button>
       <button>{combinedWords[1]}</button>
       <p>{definition}</p>
+      <Score />
 
       <Footer />
     </div>
