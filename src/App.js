@@ -42,9 +42,13 @@ function App() {
       setDefinition(wordWithDefinition[0].defs[0]);
 
       let unshuffled = [wordWithDefinition[0].word + `(data from api)`, currentWord]
+      // added sort property to use sort array built-in function.
       let shuffled = unshuffled.map(val => ({ val, sort: Math.random() }))
+        // shuffled by sort value
         .sort((a, b) => a.sort - b.sort)
+        // return only value which is 'word' to shuffled variable.
         .map(({ val }) => val)
+      // console.log(shuffled);    check with this console.log
       setCombinedWords(shuffled)
     })
   }, []);
