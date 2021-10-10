@@ -1,6 +1,5 @@
 import './App.css';
 import axios from 'axios';
-import Definition from './Definition.js';
 import { useState, useEffect } from 'react';
 
 
@@ -9,9 +8,8 @@ function App() {
 
   //array with 10 objects: 10 homophones with 10 definitions;
 
-  const [word, setWord] = useState('');
+  // const [randomWord, setRandomWord] = useState('')
   const [definition, setDefinition] = useState('')
-  const [apiWord, setApiWord] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
 
 
@@ -21,11 +19,27 @@ function App() {
     return random
   }
 
+  // random word api 
+  // https://random-word-api.herokuapp.com/word?number=20
+
+  // useEffect(() => {
+  //   axios({
+  //     url: 'https://random-word-api.herokuapp.com/word?number=20',
+  //     method: 'GET',
+  //     dataResponse: 'json'
+  //   }).then(res => {
+  //     const apiWords = res.data[1];
+  //     // console.log(apiWords);
+  //     setRandomWord(apiWords);
+  //   })
+
+  // }, [])
+
+  // console.log(randomWord);
   useEffect(() => {
 
     const randomNum = randomize(randomWords);
     const currentWord = randomWords[randomNum];
-    setApiWord(currentWord);
 
     axios({
       url: 'https://api.datamuse.com/words',
@@ -36,11 +50,11 @@ function App() {
         rel_hom: currentWord,
       }
     }).then(res => {
+      console.log(res)
       const wordWithDefinition = res.data.filter(res => res.defs);
       console.log(wordWithDefinition);
-      setWord(wordWithDefinition[0].word);
-      setDefinition(wordWithDefinition[0].defs[0]);
 
+      setDefinition(wordWithDefinition[0].defs[0]);
       let unshuffled = [wordWithDefinition[0].word + `(data from api)`, currentWord]
       // added sort property to use sort array built-in function.
       let shuffled = unshuffled.map(val => ({ val, sort: Math.random() }))
@@ -58,16 +72,11 @@ function App() {
   return (
 
     <div className="App">
+
       <h1>What Do You No?</h1>
       <button>{combinedWords[0]}</button>
       <button>{combinedWords[1]}</button>
       <p>{definition}</p>
-      {/* <Definition
-        combinedWordsArray={combinedWords[Math.floor(Math.random() * combinedWords.length)]}
-        randomizer={randomize}
-      /> */}
-
-      {/* <p> {definition}</p> */}
     </div>
   );
 }
