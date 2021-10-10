@@ -1,5 +1,6 @@
 import './App.css';
 import axios from 'axios';
+import Footer from './Footer';
 import { useState, useEffect } from 'react';
 
 
@@ -12,8 +13,6 @@ function App() {
   // const [randomWord, setRandomWord] = useState('')
   const [definition, setDefinition] = useState('')
   const [combinedWords, setCombinedWords] = useState([]);
-
-
 
   // function to randomly select an item from an array
   const randomize = (randomArray) => {
@@ -61,6 +60,8 @@ function App() {
       <button>{combinedWords[0]}</button>
       <button>{combinedWords[1]}</button>
       <p>{definition}</p>
+
+      <Footer />
     </div>
   );
 }
