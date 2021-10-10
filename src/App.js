@@ -50,13 +50,8 @@ function App() {
         return { word: word, definition: "" }
       }));
       
-      // console.log(combinedWordsArray);
-      // const data = combinedWordsArray.filter(res => res.defs);
-      
-      
     });
   }, []);
-  // console.log(combinedWords);
 
   return (
 
@@ -69,10 +64,7 @@ function App() {
         combinedWordsArray={combinedWords}
         randomizer={randomize}
         sdf={sdf}
-        setSdf={setSdf}
       />
-
-      {/* <p> {definition}</p> */}
     </div>
   );
 }
