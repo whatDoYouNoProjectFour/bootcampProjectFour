@@ -5,31 +5,30 @@ import { useState, useEffect } from 'react';
 
 
 function App() {
+  // hardcoded array of 10 homophonous words
   const randomWords = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
 
-  //array with 10 objects: 10 homophones with 10 definitions;
-
+  // state variables
   const [word, setWord] = useState('');
   const [apiWord, setApiWord] = useState('');
   const [combinedWords, setCombinedWords] = useState([{
     word: "",
     definition: ""
   }]);
-  const [sdf , setSdf] = useState([]);
 
- 
-
+  // function to randomly select an item from an array
   const randomize = (randomArray) => {
     const random = Math.floor(Math.random() * randomArray.length);
     return random
   }
 
   useEffect(() => {
-
+    // get random word from hardcoded array to pass into axios query param
     const randomNum = randomize(randomWords);
     const currentWord = randomWords[randomNum];
     setApiWord(currentWord);
   
+    // make call to datamuse api to get homophones 
     axios({
       url: 'https://api.datamuse.com/words',
       method: 'GET',
@@ -39,22 +38,19 @@ function App() {
         rel_hom: currentWord,
       }
     }).then(res => {
-      // console.log(res.data);
+      // filter out words that don't have definitions and store result in state
       const wordWithDefinition = res.data.filter(res => res.defs); 
       setWord(wordWithDefinition[0].word)
-      
+      // put currentWord and api result word into a single array
       const combinedWordsArray = [];
       combinedWordsArray.push(currentWord, wordWithDefinition[0].word);
-      // console.log(combinedWordsArray);
       setCombinedWords(combinedWordsArray.map((word) => {
         return { word: word, definition: "" }
       }));
-      
     });
   }, []);
 
   return (
-
     <div className="App">
       <h1>What Do You No?</h1>
       <button>{apiWord}</button>
@@ -63,7 +59,6 @@ function App() {
       <Definition 
         combinedWordsArray={combinedWords}
         randomizer={randomize}
-        sdf={sdf}
       />
     </div>
   );
