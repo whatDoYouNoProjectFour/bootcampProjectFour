@@ -24,7 +24,8 @@ function App() {
     const randomNum = randomize(randomWords);
     const currentWord = randomWords[randomNum];
     setApiWord(currentWord);
-  
+
+
     axios({
       url: 'https://api.datamuse.com/words',
       method: 'GET',
@@ -56,16 +57,14 @@ function App() {
       <button>{apiWord}</button>
       <button>{word}</button>
 
-      {
-        combinedWords ? 
+      
         <Definition 
           combinedWordsArray={combinedWords}
           randomizer={randomize}
           sdf={sdf}
           setSdf={setSdf}
         />
-        : null
-      }
+     
 
       {/* <p> {definition}</p> */}
     </div>
