@@ -1,6 +1,7 @@
 import './App.css';
 import axios from 'axios';
 import Definition from './Definition.js';
+import Footer from './Footer.js';
 import { useState, useEffect } from 'react';
 
 
@@ -60,6 +61,9 @@ function App() {
         combinedWordsArray={combinedWords}
         randomizer={randomize}
       />
+
+
+      <Footer />
     </div>
   );
 }
