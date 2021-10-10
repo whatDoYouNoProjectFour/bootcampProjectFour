@@ -11,8 +11,11 @@ function App() {
 
   const [word, setWord] = useState('');
   const [apiWord, setApiWord] = useState('');
-  const [combinedWords, setCombinedWords] = useState([]);
-  const [sdf , setSdf] = useState([])
+  const [combinedWords, setCombinedWords] = useState([{
+    word: "",
+    definition: ""
+  }]);
+  const [sdf , setSdf] = useState([]);
 
   const randomize = (randomArray) => {
     const random = Math.floor(Math.random() * randomArray.length);
@@ -40,32 +43,30 @@ function App() {
       
       const combinedWordsArray = [];
       combinedWordsArray.push(currentWord, wordWithDefinition[0].word);
-      setCombinedWords(combinedWordsArray);
-
-      // const data = combinedWordsArray.filter(res => res.defs);
+      // console.log(combinedWordsArray);
+      setCombinedWords(combinedWordsArray.map((word) => {
+        return { word: word, definition: "" }
+      }));
       
-
+      // console.log(combinedWordsArray);
+      // const data = combinedWordsArray.filter(res => res.defs);
     });
   }, []);
+  // console.log(combinedWords);
 
-  // console.log(sdf);
   return (
 
     <div className="App">
       <h1>What Do You No?</h1>
       <button>{apiWord}</button>
       <button>{word}</button>
-
-      {
-        combinedWords ? 
-        <Definition 
-          combinedWordsArray={combinedWords}
-          randomizer={randomize}
-          sdf={sdf}
-          setSdf={setSdf}
-        />
-        : null
-      }
+      
+      <Definition 
+        combinedWordsArray={combinedWords}
+        randomizer={randomize}
+        sdf={sdf}
+        setSdf={setSdf}
+      />
 
       {/* <p> {definition}</p> */}
     </div>
