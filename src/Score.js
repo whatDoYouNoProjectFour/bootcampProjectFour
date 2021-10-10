@@ -1,10 +1,14 @@
+import { useState } from 'react';
+
 const Score = () => {
-  
-  
+  const [score, setScore] = useState(0);
+
+  const increaseScore = () => {
+    setScore(score +1);
+  }
+
   return (
-    <div className="score">
-      <h3>Score: </h3>
-    </div>
+    <h3 onClick={increaseScore}>Score: {score}</h3>
   )
 }
 

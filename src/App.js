@@ -1,9 +1,12 @@
 import './App.css';
 import axios from 'axios';
+import Footer from './Footer';
+import Score from './Score';
 import { useState, useEffect } from 'react';
 
 
 function App() {
+  // hardcoded array of 10 homophonous words
   const randomWords = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
 
   //array with 10 objects: 10 homophones with 10 definitions;
@@ -12,35 +15,17 @@ function App() {
   const [definition, setDefinition] = useState('')
   const [combinedWords, setCombinedWords] = useState([]);
 
-
-
+  // function to randomly select an item from an array
   const randomize = (randomArray) => {
     const random = Math.floor(Math.random() * randomArray.length);
     return random
   }
 
-  // random word api 
-  // https://random-word-api.herokuapp.com/word?number=20
-
-  // useEffect(() => {
-  //   axios({
-  //     url: 'https://random-word-api.herokuapp.com/word?number=20',
-  //     method: 'GET',
-  //     dataResponse: 'json'
-  //   }).then(res => {
-  //     const apiWords = res.data[1];
-  //     // console.log(apiWords);
-  //     setRandomWord(apiWords);
-  //   })
-
-  // }, [])
-
   // console.log(randomWord);
   useEffect(() => {
-
+    // get random word from hardcoded array to pass into axios query param
     const randomNum = randomize(randomWords);
     const currentWord = randomWords[randomNum];
-
     axios({
       url: 'https://api.datamuse.com/words',
       method: 'GET',
@@ -50,7 +35,6 @@ function App() {
         rel_hom: currentWord,
       }
     }).then(res => {
-      console.log(res)
       const wordWithDefinition = res.data.filter(res => res.defs);
       console.log(wordWithDefinition);
 
@@ -70,13 +54,15 @@ function App() {
   console.log(combinedWords);
 
   return (
-
     <div className="App">
 
       <h1>What Do You No?</h1>
       <button>{combinedWords[0]}</button>
       <button>{combinedWords[1]}</button>
       <p>{definition}</p>
+      <Score />
+
+      <Footer />
     </div>
   );
 }
