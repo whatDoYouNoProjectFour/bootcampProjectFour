@@ -9,8 +9,6 @@ function App() {
   // hardcoded array of 10 homophonous words
   const randomWords = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
 
-  //array with 10 objects: 10 homophones with 10 definitions;
-
   // const [randomWord, setRandomWord] = useState('')
   const [definition, setDefinition] = useState('')
   const [combinedWords, setCombinedWords] = useState([]);
@@ -21,7 +19,6 @@ function App() {
     return random
   }
 
-  // console.log(randomWord);
   useEffect(() => {
     // get random word from hardcoded array to pass into axios query param
     const randomNum = randomize(randomWords);
@@ -35,8 +32,8 @@ function App() {
         rel_hom: currentWord,
       }
     }).then(res => {
+      // filter returned words for words that have valid definitions
       const wordWithDefinition = res.data.filter(res => res.defs);
-      console.log(wordWithDefinition);
 
       setDefinition(wordWithDefinition[0].defs[0]);
       let unshuffled = [wordWithDefinition[0].word + `(data from api)`, currentWord]
