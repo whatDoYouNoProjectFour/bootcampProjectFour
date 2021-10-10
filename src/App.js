@@ -37,18 +37,26 @@ function App() {
       }
     }).then(res => {
       const wordWithDefinition = res.data.filter(res => res.defs);
-      console.log(wordWithDefinition)
-      setWord(wordWithDefinition[0].word)
-      setDefinition(wordWithDefinition[0].defs[0])
+      console.log(wordWithDefinition);
+      setWord(wordWithDefinition[0].word);
+      setDefinition(wordWithDefinition[0].defs[0]);
+
+      let unshuffled = [wordWithDefinition[0].word + `(data from api)`, currentWord]
+      let shuffled = unshuffled.map(val => ({ val, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ val }) => val)
+      setCombinedWords(shuffled)
     })
   }, []);
+
+  console.log(combinedWords);
 
   return (
 
     <div className="App">
       <h1>What Do You No?</h1>
-      <button>{apiWord}</button>
-      <button>{word}</button>
+      <button>{combinedWords[0]}</button>
+      <button>{combinedWords[1]}</button>
       <p>{definition}</p>
       {/* <Definition
         combinedWordsArray={combinedWords[Math.floor(Math.random() * combinedWords.length)]}
