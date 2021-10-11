@@ -1,7 +1,5 @@
 
 const MainGame = () => {
-
-
     return (
         <div>
             <h1>What Do You No?</h1>
