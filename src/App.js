@@ -13,10 +13,21 @@ function App() {
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
 
+  // added score useState to update user score.
+  const [score, setScore] = useState(0);
+  // added round useState to re-render the useEffect that update new word for next question. This will update when user got the right answer.
+  const [round, setRound] = useState(0);
+
   // function to randomly select an item from an array
   const randomize = (randomArray) => {
     const random = Math.floor(Math.random() * randomArray.length);
     return random
+  }
+  // function to add score when user got the right answer
+  // Also going to update round useState to re-render the useEffect
+  const increaseScore = () => {
+    setScore(score + 1);
+    setRound(round + 1);
   }
 
   useEffect(() => {
@@ -62,12 +73,15 @@ function App() {
       console.log(shuffled);
     })
     // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
-  }, []);
+  }, [round]);
   // console.log(combinedWords[0].val, combinedWords[1].val)
   console.log(combinedWords);
 
   // event handler to evaluate if word matches definition and increases score
   const handleClick = (e, individualWord) => {
+
+    // added individualWord parameter to check if there is a definition property.
+
     // console.log(e.target.textContent);
     // console.log(typeof (individualWord.definition))
 
@@ -76,6 +90,7 @@ function App() {
 
     if (individualWord.definition) {
       console.log('you got it!');
+      increaseScore()
     } else {
       console.log('wrong :(');
     }
@@ -94,7 +109,9 @@ function App() {
         })
       }
       <p>{definition}</p>
-      <Score />
+      {/* added score property to update score */}
+      <Score
+        score={score} />
 
       <Footer />
     </div>
