@@ -67,11 +67,14 @@ function App() {
   console.log(combinedWords);
 
   // event handler to evaluate if word matches definition and increases score
-  const handleClick = (e, index) => {
-    console.log(e.target.textContent);
+  const handleClick = (e, individualWord) => {
+    // console.log(e.target.textContent);
+    // console.log(typeof (individualWord.definition))
+
 
     // FIX ME
-    if (e.target.textContent === combinedWords[1].word && combinedWords[1].hasOwnProperty(definition)) {
+
+    if (individualWord.definition) {
       console.log('you got it!');
     } else {
       console.log('wrong :(');
@@ -84,7 +87,7 @@ function App() {
       {
         combinedWords.map((individualWord, index) => {
           return (
-            <button key={index} onClick={handleClick}>
+            <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
               {individualWord.word}
             </button>
           )
