@@ -36,18 +36,18 @@ function App() {
       const wordWithDefinition = res.data.filter(res => res.defs);
 
       setDefinition(wordWithDefinition[0].defs[0]);
-      let unshuffled = [wordWithDefinition[0].word + `(data from api)`, currentWord]
+      let unshuffled = [wordWithDefinition[0].word, currentWord]
       // added sort property to use sort array built-in function.
-      let shuffled = unshuffled.map(val => {
-        if (wordWithDefinition[0].word === val) {
+      let shuffled = unshuffled.map(word => {
+        if (wordWithDefinition[0].word === word ) {
           return ({
-            val,
+            word,
             definition: wordWithDefinition[0].defs[0],
             sort: Math.random(),
           })
         } else {
           return ({
-            val,
+            word,
             sort: Math.random(),
           })
         }
@@ -55,22 +55,31 @@ function App() {
         // shuffled by sort value
         .sort((a, b) => a.sort - b.sort)
 
-      setCombinedWords(...combinedWords, shuffled);
+      setCombinedWords(shuffled);
+      console.log(shuffled);
     })
   }, []);
   // console.log(combinedWords);
-
   console.log(combinedWords);
+
+  const clickHandle = function(e) {
+    if (e.target.textContent === combinedWords[0].word) {
+      console.log('you got it!');
+    } else {
+      console.log('wrong :(');
+    }
+  }
 
   return (
     <div className="App">
 
       <h1>What Do You No?</h1>
       {
-        combinedWords.map((res, index) => {
+        combinedWords.map((individualWord, index) => {
           return (
-            <button key={index}>
-              {res.val}
+            <button key={index}
+            onClick={clickHandle}>
+              {individualWord.word}
             </button>
           )
         })
