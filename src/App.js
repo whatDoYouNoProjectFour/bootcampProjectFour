@@ -63,7 +63,7 @@ function App() {
     })
     // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
   }, []);
-
+  // console.log(combinedWords[0].val, combinedWords[1].val)
   console.log(combinedWords);
 
   // event handler to evaluate if word matches definition and increases score
@@ -77,7 +77,6 @@ function App() {
       console.log('wrong :(');
     }
   }
-
 
   return (
     <div className="App">
