@@ -1,33 +1,28 @@
 import './App.css';
 import axios from 'axios';
-import Definition from './Definition.js';
+import Footer from './Footer';
+import Score from './Score';
 import { useState, useEffect } from 'react';
 
 
 function App() {
+  // hardcoded array of 10 homophonous words
   const randomWords = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
 
-  //array with 10 objects: 10 homophones with 10 definitions;
+  // const [randomWord, setRandomWord] = useState('')
+  const [definition, setDefinition] = useState('')
+  const [combinedWords, setCombinedWords] = useState([]);
 
-  const [word, setWord] = useState('');
-  const [apiWord, setApiWord] = useState('');
-  const [combinedWords, setCombinedWords] = useState([{
-    word: "",
-    definition: ""
-  }]);
-  const [sdf , setSdf] = useState([]);
-
+  // function to randomly select an item from an array
   const randomize = (randomArray) => {
     const random = Math.floor(Math.random() * randomArray.length);
     return random
   }
 
   useEffect(() => {
-
+    // get random word from hardcoded array to pass into axios query param
     const randomNum = randomize(randomWords);
     const currentWord = randomWords[randomNum];
-    setApiWord(currentWord);
-  
     axios({
       url: 'https://api.datamuse.com/words',
       method: 'GET',
@@ -37,38 +32,53 @@ function App() {
         rel_hom: currentWord,
       }
     }).then(res => {
-      // console.log(res.data);
-      const wordWithDefinition = res.data.filter(res => res.defs); 
-      setWord(wordWithDefinition[0].word)
-      
-      const combinedWordsArray = [];
-      combinedWordsArray.push(currentWord, wordWithDefinition[0].word);
-      // console.log(combinedWordsArray);
-      setCombinedWords(combinedWordsArray.map((word) => {
-        return { word: word, definition: "" }
-      }));
-      
-      // console.log(combinedWordsArray);
-      // const data = combinedWordsArray.filter(res => res.defs);
-    });
+      // filter returned words for words that have valid definitions
+      const wordWithDefinition = res.data.filter(res => res.defs);
+
+      setDefinition(wordWithDefinition[0].defs[0]);
+      let unshuffled = [wordWithDefinition[0].word + `(data from api)`, currentWord]
+      // added sort property to use sort array built-in function.
+      let shuffled = unshuffled.map(val => {
+        if (wordWithDefinition[0].word === val) {
+          return ({
+            val,
+            definition: wordWithDefinition[0].defs[0],
+            sort: Math.random(),
+          })
+        } else {
+          return ({
+            val,
+            sort: Math.random(),
+          })
+        }
+      })
+        // shuffled by sort value
+        .sort((a, b) => a.sort - b.sort)
+
+      setCombinedWords(...combinedWords, shuffled);
+    })
   }, []);
   // console.log(combinedWords);
 
+  console.log(combinedWords);
+
   return (
-
     <div className="App">
-      <h1>What Do You No?</h1>
-      <button>{apiWord}</button>
-      <button>{word}</button>
-      
-      <Definition 
-        combinedWordsArray={combinedWords}
-        randomizer={randomize}
-        sdf={sdf}
-        setSdf={setSdf}
-      />
 
-      {/* <p> {definition}</p> */}
+      <h1>What Do You No?</h1>
+      {
+        combinedWords.map((res, index) => {
+          return (
+            <button key={index}>
+              {res.val}
+            </button>
+          )
+        })
+      }
+      <p>{definition}</p>
+      <Score />
+
+      <Footer />
     </div>
   );
 }
