@@ -5,13 +5,14 @@ import Score from './Score';
 import { useState, useEffect } from 'react';
 
 
+const randomWords = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
 function App() {
   // hardcoded array of 10 homophonous words
-  const randomWords = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
 
   // declare state variables 
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
+  // const [startingWord, setStartingWord] = useState('');
 
   // added score useState to update user score.
   const [score, setScore] = useState(0);
@@ -23,25 +24,28 @@ function App() {
     const random = Math.floor(Math.random() * randomArray.length);
     return random
   }
-
+  const randomNum = randomize(randomWords);
+  
   useEffect(() => {
+    // setStartingWord(randomWords[randomNum]);
+    // console.log(startingWord);
+    // console.log(randomWords[randomNum]);
     // get random word from hardcoded array to pass into axios query param
-    const randomNum = randomize(randomWords);
-    const startingWord = randomWords[randomNum];
     axios({
       url: 'https://api.datamuse.com/words',
       method: 'GET',
       dataResponse: 'json',
       params: {
         md: "d",
-        rel_hom: startingWord,
+        rel_hom: "idle"
+        // rel_hom: startingWord,
       }
     }).then(homophone => {
       // filter returned words for words that have valid definitions and store in state
       const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
       setDefinition(wordWithDefinition[0].defs[0]);
 
-      const unshuffled = [wordWithDefinition[0].word, startingWord]
+      const unshuffled = [wordWithDefinition[0].word, "idle"]
       // map unshuffled array to produce a new array of shuffled objects that contain the word and definition
       const shuffled = unshuffled.map(word => {
         // condition to check if word has a definition (always the api result) and return an object with that property
@@ -68,19 +72,11 @@ function App() {
     })
     // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
   }, [round]);
-  // console.log(combinedWords[0].val, combinedWords[1].val)
-  // console.log(combinedWords);
 
+  console.log(combinedWords);
+  
   // event handler to evaluate if word matches definition and increases score
   const handleClick = (e, individualWord) => {
-
-    // added individualWord parameter to check if there is a definition property.
-
-    // console.log(e.target.textContent);
-    // console.log(typeof (individualWord.definition))
-
-
-    // FIX ME
 
     // Will add score when user got the right answer
     // Also going to update round useState to re-render the useEffect
