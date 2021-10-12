@@ -1,6 +1,6 @@
 import './App.css';
 import axios from 'axios';
-import database from './firebase';
+// import database from './firebase';
 import Footer from './Footer';
 import Score from './Score';
 import { useState, useEffect } from 'react';
@@ -27,11 +27,15 @@ function App() {
     setRandomWords(['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'])
   }, []);
 
+  // secondary useEffect to make api call and find homophones of randomWords
   useEffect(() => {
+    // get random starting word from hardcoded array to pass into axios query param
     const startingWord = randomWords[randomize(randomWords)];
 
-    if(startingWord !== undefined){
-      // get random word from hardcoded array to pass into axios query param
+    const usedWords = [];
+    usedWords.push(startingWord);
+
+    if(startingWord !== undefined && !usedWords.includes(startingWord)){
       axios({
         url: 'https://api.datamuse.com/words',
         method: 'GET',
