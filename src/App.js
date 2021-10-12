@@ -1,5 +1,6 @@
 import './App.css';
 import axios from 'axios';
+import database from './firebase';
 import Footer from './Footer';
 import Score from './Score';
 import { useState, useEffect } from 'react';
@@ -71,7 +72,6 @@ function App() {
       }).catch((err) => {
         console.log(err)
       })
-      // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
     }
   }, [round, randomWords]);
  
