@@ -1,14 +1,20 @@
-import { useState } from 'react';
 
-const Score = () => {
-  const [score, setScore] = useState(0);
-
-  const increaseScore = () => {
-    setScore(score +1);
-  }
-
+const Score = (props) => {
+  console.log(props.round)
   return (
-    <h3 onClick={increaseScore}>Score: {score}</h3>
+    <>
+      {/* display scroe until round 10 */}
+      {props.round < 10 ? (
+        <h3>Score: {props.score}</h3>
+
+      ) : (
+        <div>
+          <h2>Score: {props.score}</h2>
+          <h3> Game End</h3>
+        </div>
+      )}
+    </>
+
   )
 }
 
