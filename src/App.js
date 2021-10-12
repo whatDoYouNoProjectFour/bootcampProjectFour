@@ -60,7 +60,7 @@ function App() {
         }
       })
         // use sort method to randomly change order of objects in array
-        .sort((a, b) => a.sort - b.sort)
+        .sort((homophone, startingWord) => homophone.sort - startingWord.sort)
 
       // store shuffled result in state
       setCombinedWords(shuffled);
