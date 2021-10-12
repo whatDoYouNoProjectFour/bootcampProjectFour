@@ -68,19 +68,9 @@ function App() {
     })
     // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
   }, [round]);
-  // console.log(combinedWords[0].val, combinedWords[1].val)
-  // console.log(combinedWords);
-
+  
   // event handler to evaluate if word matches definition and increases score
   const handleClick = (e, individualWord) => {
-
-    // added individualWord parameter to check if there is a definition property.
-
-    // console.log(e.target.textContent);
-    // console.log(typeof (individualWord.definition))
-
-
-    // FIX ME
 
     // Will add score when user got the right answer
     // Also going to update round useState to re-render the useEffect
