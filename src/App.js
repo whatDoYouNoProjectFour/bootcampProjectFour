@@ -71,7 +71,6 @@ function App() {
       }).catch((err) => {
         console.log(err)
       })
-      // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
     }
   }, [round, randomWords]);
  
