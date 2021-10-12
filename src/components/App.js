@@ -4,12 +4,7 @@ import Footer from './Footer';
 import Score from './Score';
 import { useState, useEffect } from 'react';
 
-<<<<<<< HEAD:src/components/App.js
-
-const App = () => {
-=======
 function App() {
->>>>>>> 1d0e812801ab13fa271731172cb5cbc43f71d2a0:src/App.js
   // hardcoded array of 10 homophonous words
   // declare state variables 
   const [randomWords, setRandomWords] = useState([]);
