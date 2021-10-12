@@ -13,6 +13,11 @@ const App = () => {
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
 
+  // added score useState to update user score.
+  const [score, setScore] = useState(0);
+  // added round useState to re-render the useEffect that update new word for next question. This will update when user got the right answer.
+  const [round, setRound] = useState(0);
+
   // function to randomly select an item from an array
   const randomize = (randomArray) => {
     const random = Math.floor(Math.random() * randomArray.length);
@@ -59,40 +64,67 @@ const App = () => {
 
       // store shuffled result in state
       setCombinedWords(shuffled);
-      console.log(shuffled);
+      // console.log(shuffled);
     })
     // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
-  }, []);
+  }, [round]);
   // console.log(combinedWords[0].val, combinedWords[1].val)
-  console.log(combinedWords);
+  // console.log(combinedWords);
 
   // event handler to evaluate if word matches definition and increases score
-  const handleClick = (e, index) => {
-    console.log(e.target.textContent);
+  const handleClick = (e, individualWord) => {
+
+    // added individualWord parameter to check if there is a definition property.
+
+    // console.log(e.target.textContent);
+    // console.log(typeof (individualWord.definition))
+
 
     // FIX ME
-    if (e.target.textContent === combinedWords[1].word && combinedWords[1].hasOwnProperty(definition)) {
+
+    // Will add score when user got the right answer
+    // Also going to update round useState to re-render the useEffect
+    if (individualWord.definition) {
       console.log('you got it!');
+      setScore(score + 1);
+      setRound(round + 1);
     } else {
+      // Even user got wrong answer, update round to display next question.
       console.log('wrong :(');
+      setRound(round + 1);
     }
   }
 
   return (
     <div className="App">
       <h1>What Do You No?</h1>
-      {
-        combinedWords.map((individualWord, index) => {
-          return (
-            <button key={index} onClick={handleClick}>
-              {individualWord.word}
-            </button>
-          )
-        })
-      }
-      <p>{definition}</p>
-      <Score />
 
+      {/* display buttons until round 10 */}
+      {
+        round < 10 ? (
+          combinedWords.map((individualWord, index) => {
+            return (
+              <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
+                {individualWord.word}
+              </button>
+            )
+          })
+        ) : null
+      }
+      {/* display definition until round 10 */}
+      {
+        round < 10 ? (
+          <p>{definition}</p>
+        ) : null
+      }
+
+      {/* added score property to update score */}
+      {/* added round,setRound property to update round and make ternary operator for contents */}
+      <Score
+        score={score}
+        round={round}
+        setRound={setRound}
+      />
       <Footer />
     </div>
   );
