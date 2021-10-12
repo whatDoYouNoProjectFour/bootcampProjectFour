@@ -4,15 +4,17 @@ import Footer from './Footer';
 import Score from './Score';
 import { useState, useEffect } from 'react';
 
+<<<<<<< HEAD:src/components/App.js
 
 const App = () => {
+=======
+function App() {
+>>>>>>> 1d0e812801ab13fa271731172cb5cbc43f71d2a0:src/App.js
   // hardcoded array of 10 homophonous words
-  const randomWords = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
-
   // declare state variables 
+  const [randomWords, setRandomWords] = useState([]);
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
-
   // added score useState to update user score.
   const [score, setScore] = useState(0);
   // added round useState to re-render the useEffect that update new word for next question. This will update when user got the right answer.
@@ -24,63 +26,62 @@ const App = () => {
     return random
   }
 
+  // Setting the random words array in state when app loads for the first time
   useEffect(() => {
-    // get random word from hardcoded array to pass into axios query param
-    const randomNum = randomize(randomWords);
-    const startingWord = randomWords[randomNum];
-    axios({
-      url: 'https://api.datamuse.com/words',
-      method: 'GET',
-      dataResponse: 'json',
-      params: {
-        md: "d",
-        rel_hom: startingWord,
-      }
-    }).then(homophone => {
-      // filter returned words for words that have valid definitions and store in state
-      const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
-      setDefinition(wordWithDefinition[0].defs[0]);
+    setRandomWords(['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'])
+  }, []);
 
-      const unshuffled = [wordWithDefinition[0].word, startingWord]
-      // map unshuffled array to produce a new array of shuffled objects that contain the word and definition
-      const shuffled = unshuffled.map(word => {
-        // condition to check if word has a definition (always the api result) and return an object with that property
-        if (wordWithDefinition[0].word === word) {
-          return ({
-            word,
-            definition: wordWithDefinition[0].defs[0],
-            sort: Math.random(),
-          })
-          // don't return definition property if it is the hardcoded original word
-        } else {
-          return ({
-            word,
-            sort: Math.random(),
-          })
+  useEffect(() => {
+    const startingWord = randomWords[randomize(randomWords)];
+
+    if(startingWord !== undefined){
+      // get random word from hardcoded array to pass into axios query param
+      axios({
+        url: 'https://api.datamuse.com/words',
+        method: 'GET',
+        dataResponse: 'json',
+        params: {
+          md: "d",
+          rel_hom: startingWord,
         }
+      }).then(homophone => {
+        // filter returned words for words that have valid definitions and store in state
+        const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
+        setDefinition(wordWithDefinition[0].defs[0]);
+
+        const unshuffled = [wordWithDefinition[0].word, startingWord]
+        // map unshuffled array to produce a new array of shuffled objects that contain the word and definition
+        const shuffled = unshuffled.map(word => {
+          // condition to check if word has a definition (always the api result) and return an object with that property
+          if (wordWithDefinition[0].word === word) {
+            return ({
+              word,
+              definition: wordWithDefinition[0].defs[0],
+              sort: Math.random(),
+            })
+            // don't return definition property if it is the hardcoded original word
+          } else {
+            return ({
+              word,
+              sort: Math.random(),
+            })
+          }
+        })
+          // use sort method to randomly change order of objects in array
+          .sort((a, b) => a.sort - b.sort)
+
+        // store shuffled result in state
+        setCombinedWords(shuffled);
+        console.log(shuffled);
+      }).catch((err) => {
+        console.log(err)
       })
-        // use sort method to randomly change order of objects in array
-        .sort((a, b) => a.sort - b.sort)
-
-      // store shuffled result in state
-      setCombinedWords(shuffled);
-      // console.log(shuffled);
-    })
-    // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
-  }, [round]);
-  // console.log(combinedWords[0].val, combinedWords[1].val)
-  // console.log(combinedWords);
-
+      // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
+    }
+  }, [round, randomWords]);
+ 
   // event handler to evaluate if word matches definition and increases score
   const handleClick = (e, individualWord) => {
-
-    // added individualWord parameter to check if there is a definition property.
-
-    // console.log(e.target.textContent);
-    // console.log(typeof (individualWord.definition))
-
-
-    // FIX ME
 
     // Will add score when user got the right answer
     // Also going to update round useState to re-render the useEffect

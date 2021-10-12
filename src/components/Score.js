@@ -1,6 +1,5 @@
 
 const Score = (props) => {
-  console.log(props.round)
   return (
     <>
       {/* display scroe until round 10 */}
