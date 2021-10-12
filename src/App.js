@@ -23,12 +23,6 @@ function App() {
     const random = Math.floor(Math.random() * randomArray.length);
     return random
   }
-  // function to add score when user got the right answer
-  // Also going to update round useState to re-render the useEffect
-  const increaseScore = () => {
-    setScore(score + 1);
-    setRound(round + 1);
-  }
 
   useEffect(() => {
     // get random word from hardcoded array to pass into axios query param
@@ -70,12 +64,12 @@ function App() {
 
       // store shuffled result in state
       setCombinedWords(shuffled);
-      console.log(shuffled);
+      // console.log(shuffled);
     })
     // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
   }, [round]);
   // console.log(combinedWords[0].val, combinedWords[1].val)
-  console.log(combinedWords);
+  // console.log(combinedWords);
 
   // event handler to evaluate if word matches definition and increases score
   const handleClick = (e, individualWord) => {
@@ -88,31 +82,49 @@ function App() {
 
     // FIX ME
 
+    // Will add score when user got the right answer
+    // Also going to update round useState to re-render the useEffect
     if (individualWord.definition) {
       console.log('you got it!');
-      increaseScore()
+      setScore(score + 1);
+      setRound(round + 1);
     } else {
+      // Even user got wrong answer, update round to display next question.
       console.log('wrong :(');
+      setRound(round + 1);
     }
   }
 
   return (
     <div className="App">
       <h1>What Do You No?</h1>
-      {
-        combinedWords.map((individualWord, index) => {
-          return (
-            <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
-              {individualWord.word}
-            </button>
-          )
-        })
-      }
-      <p>{definition}</p>
-      {/* added score property to update score */}
-      <Score
-        score={score} />
 
+      {/* display buttons until round 10 */}
+      {
+        round < 10 ? (
+          combinedWords.map((individualWord, index) => {
+            return (
+              <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
+                {individualWord.word}
+              </button>
+            )
+          })
+        ) : null
+      }
+      {/* display definition until round 10 */}
+      {
+        round < 10 ? (
+          <p>{definition}</p>
+        ) : null
+      }
+
+      {/* added score property to update score */}
+      {/* added round,setRound property to update round and make ternary operator for contents */}
+      <Score
+        score={score}
+        round={round}
+        setRound={setRound}
+      />
       <Footer />
     </div>
   );
