@@ -1,5 +1,6 @@
 import './App.css';
 import axios from 'axios';
+import database from './firebase';
 import Footer from './Footer';
 import Score from './Score';
 import { useState, useEffect } from 'react';
