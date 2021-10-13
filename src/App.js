@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     const startingWord = randomWords[randomize(randomWords)];
 
-    if(startingWord !== undefined){
+    if (startingWord !== undefined) {
       // get random word from hardcoded array to pass into axios query param
       axios({
         url: 'https://api.datamuse.com/words',
@@ -74,7 +74,7 @@ function App() {
       })
     }
   }, [round, randomWords]);
- 
+
   // event handler to evaluate if word matches definition and increases score
   const handleClick = (e, individualWord) => {
 
