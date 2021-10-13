@@ -11,6 +11,7 @@ function App() {
   const [randomWords, setRandomWords] = useState([]);
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
+  const [checkAnswer, setCheckAnswer] = useState(null);
   // added score useState to update user score.
   const [score, setScore] = useState(0);
   // added round useState to re-render the useEffect that update new word for next question. This will update when user got the right answer.
@@ -30,7 +31,7 @@ function App() {
   useEffect(() => {
     const startingWord = randomWords[randomize(randomWords)];
 
-    if(startingWord !== undefined){
+    if (startingWord !== undefined) {
       // get random word from hardcoded array to pass into axios query param
       axios({
         url: 'https://api.datamuse.com/words',
@@ -74,20 +75,36 @@ function App() {
       })
     }
   }, [round, randomWords]);
- 
+
   // event handler to evaluate if word matches definition and increases score
   const handleClick = (e, individualWord) => {
 
     // Will add score when user got the right answer
     // Also going to update round useState to re-render the useEffect
-    if (individualWord.definition) {
-      console.log('you got it!');
-      setScore(score + 1);
-      setRound(round + 1);
+
+    // user can only choose answer when checkAnser === null
+    if (checkAnswer === null) {
+
+      if (individualWord.definition) {
+        console.log('you got it!');
+        setScore(score + 1);
+        setCheckAnswer(true);
+        setTimeout(() => {
+          setRound(round + 1)
+          setCheckAnswer(null)
+        }, 3000);
+      } else {
+        // Even user got wrong answer, update round to display next question.
+        setCheckAnswer(false);
+        setTimeout(() => {
+          setRound(round + 1)
+          setCheckAnswer(null)
+        }, 3000);
+      }
+
+      // need to be more fancy
     } else {
-      // Even user got wrong answer, update round to display next question.
-      console.log('wrong :(');
-      setRound(round + 1);
+      alert("Don't even think about it")
     }
   }
 
@@ -112,6 +129,19 @@ function App() {
         round < 10 ? (
           <p>{definition}</p>
         ) : null
+      }
+
+      {
+        // user can only see this message whene checkAnser true or false
+        checkAnswer === null ? null : (
+          <p>
+            {
+              checkAnswer === true ? (
+                <p>right</p>
+              ) : (<p>wrong</p>)
+            }
+          </p>
+        )
       }
 
       {/* added score property to update score */}
