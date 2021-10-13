@@ -107,7 +107,9 @@ function App() {
           })
         ) : null
       }
+
       {/* display definition until round 10 */}
+      
       {
         round < 10 ? (
           <p>{definition}</p>
