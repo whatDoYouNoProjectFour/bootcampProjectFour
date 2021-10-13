@@ -4,6 +4,7 @@ import axios from 'axios';
 // components
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MainGame from './components/MainGame';
 import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
 // other files
@@ -126,47 +127,24 @@ function App() {
     }
   }
 
-
   return (
     <div className="App">
       <Header />
-      {
-        round < 10 ? (
-          combinedWords.map((individualWord, index) => {
-            return (
-              <button 
-                key={index} 
-                onClick={(e) => {handleClick(e, individualWord)}}
-              >
-                {individualWord.word}
-              </button>
-            )
-          })
-        ) : null
-      }
-      {
-        round < 10 ? (
-          <p>{definition}</p>
-        ) : null
-      }
+      <main>
+        <MainGame
+          round={round}
+          combinedWords={combinedWords}
+          handleClick={handleClick}
+          definition={definition}
+          checkAnswer={checkAnswer}
+        />
 
-      {
-        // user can only see this message whene checkAnser true or false
-        checkAnswer === null ? null : (
-          <>
-            {
-              checkAnswer === true ? (
-                <p>right</p>
-              ) : (<p>wrong</p>)
-            }
-          </>
-        )
-      }
-      <Score
-        score={score}
-        round={round}
-        setRound={setRound}
-      />
+        <Score
+          score={score}
+          round={round}
+          setRound={setRound}
+        />
+      </main>
       <ProgressBar
         progress={progress}
       />
