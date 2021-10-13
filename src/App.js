@@ -16,7 +16,7 @@ const WORDS = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationar
 function App() {
   // declare state variables 
   const [randomWords, setRandomWords] = useState([]);
-  const [startingWord, setStartingWord] = useState(''); 
+  const [startingWord, setStartingWord] = useState('');
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
   const [score, setScore] = useState(0);
@@ -29,8 +29,8 @@ function App() {
 
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
   }
@@ -38,17 +38,17 @@ function App() {
   // effect to initiate starting states on page load
   useEffect(() => {
     const shuffledWords = shuffle([...WORDS]);
-    const newWord = shuffledWords.pop();    
+    const newWord = shuffledWords.pop();
     setRandomWords(shuffledWords);
     setRound(0);
     setStartingWord(newWord);
   }, []);
-  
-  
+
+
   // secondary effect to make api call and get homophones and definintions of randomWords
   useEffect(() => {
     console.log(randomWords);
-        
+
     if (startingWord !== '' && startingWord !== undefined) {
       axios({
         url: 'https://api.datamuse.com/words',
@@ -85,9 +85,9 @@ function App() {
           .sort((homophone, startingWord) => homophone.sort - startingWord.sort);
 
         // store sorted result in state
-        setCombinedWords(sorted);        
+        setCombinedWords(sorted);
       })
-    } 
+    }
   }, [round, startingWord, randomWords]);
 
   // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
