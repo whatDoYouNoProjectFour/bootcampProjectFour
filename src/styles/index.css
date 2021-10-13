@@ -98,3 +98,7 @@ footer p {
   left: 50%;
   transform: translate(-50%,-50%);
 }
+
+.rc-progress-line .rc-progress-line-path {
+  transition-duration: 2s;
+}
