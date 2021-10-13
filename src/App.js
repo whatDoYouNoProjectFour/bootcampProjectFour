@@ -19,6 +19,8 @@ function App() {
   const [startingWord, setStartingWord] = useState('');
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
+  const [checkAnswer, setCheckAnswer] = useState(null);
+  // added score useState to update user score.
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(-1);
 
@@ -97,14 +99,32 @@ function App() {
     setStartingWord(newWord);
     setRandomWords(copiedRandomWords);
 
-    // increase score if the clicked word matches definition, and update round
-    if (individualWord.definition) {
-      // console.log('you got it!');
-      setScore(score + 1);
-      setRound(round + 1);
+    // Will add score when user got the right answer
+    // Also going to update round useState to re-render the useEffect
+
+    // user can only choose answer when checkAnser === null
+    if (checkAnswer === null) {
+
+      if (individualWord.definition) {
+        console.log('you got it!');
+        setScore(score + 1);
+        setCheckAnswer(true);
+        setTimeout(() => {
+          setRound(round + 1)
+          setCheckAnswer(null)
+        }, 3000);
+      } else {
+        // Even user got wrong answer, update round to display next question.
+        setCheckAnswer(false);
+        setTimeout(() => {
+          setRound(round + 1)
+          setCheckAnswer(null)
+        }, 3000);
+      }
+
+      // need to be more fancy
     } else {
-      // console.log('wrong :(');
-      setRound(round + 1);
+      alert("Don't even think about it")
     }
   }
 
@@ -129,6 +149,21 @@ function App() {
         ) : null
       }
 
+      {
+        // user can only see this message whene checkAnser true or false
+        checkAnswer === null ? null : (
+          <p>
+            {
+              checkAnswer === true ? (
+                <p>right</p>
+              ) : (<p>wrong</p>)
+            }
+          </p>
+        )
+      }
+
+      {/* added score property to update score */}
+      {/* added round,setRound property to update round and make ternary operator for contents */}
       <Score
         score={score}
         round={round}
