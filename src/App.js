@@ -82,6 +82,7 @@ function App() {
     // Will add score when user got the right answer
     // Also going to update round useState to re-render the useEffect
 
+    // user can only choose answer when checkAnser === null
     if (checkAnswer === null) {
 
       if (individualWord.definition) {
@@ -100,6 +101,8 @@ function App() {
           setCheckAnswer(null)
         }, 3000);
       }
+
+      // need to be more fancy
     } else {
       alert("Don't even think about it")
     }
@@ -129,6 +132,7 @@ function App() {
       }
 
       {
+        // user can only see this message whene checkAnser true or false
         checkAnswer === null ? null : (
           <p>
             {
