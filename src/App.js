@@ -3,6 +3,7 @@ import axios from 'axios';
 // import database from './firebase';
 // components
 import Header from './components/Header';
+import MainGame from './components/MainGame';
 import Footer from './components/Footer';
 import Score from './components/Score';
 // other files
@@ -100,14 +101,12 @@ function App() {
 
   // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
   const handleClick = (e, individualWord) => {
-
     const generateNewWord = () => {
       const copiedRandomWords = [...randomWords];
       const newWord = copiedRandomWords.pop();
       setStartingWord(newWord);
       setRandomWords(copiedRandomWords);
     }
-
 
 
     // Will add score when user got the right answer
@@ -118,7 +117,6 @@ function App() {
 
       if (individualWord.definition) {
         console.log('you got it!', round);
-
         setScore(score + 1);
         setCheckAnswer(true);
         setTimeout(() => {
@@ -148,44 +146,24 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <main>
 
-      {
-        round < 10 ? (
-          combinedWords.map((individualWord, index) => {
-            return (
-              <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
-                {individualWord.word}
-              </button>
-            )
-          })
-        ) : null
-      }
-      {
-        round < 10 ? (
-          <p>{definition}</p>
-        ) : null
-      }
+        <MainGame
+          round={round}
+          combinedWords={combinedWords}
+          handleClick={handleClick}
+          definition={definition}
+          checkAnswer={checkAnswer}
+        />
 
-      {
-        // user can only see this message whene checkAnser true or false
-        checkAnswer === null ? null : (
-          <>
-            {
-              checkAnswer === true ? (
-                <p>right</p>
-              ) : (<p>wrong</p>)
-            }
-          </>
-        )
-      }
-
-      {/* added score property to update score */}
-      {/* added round,setRound property to update round and make ternary operator for contents */}
-      <Score
-        score={score}
-        round={round}
-        setRound={setRound}
-      />
+        {/* added score property to update score */}
+        {/* added round,setRound property to update round and make ternary operator for contents */}
+        <Score
+          score={score}
+          round={round}
+          setRound={setRound}
+        />
+      </main>
 
       {/* <ProgressBar /> */}
       <Footer />
