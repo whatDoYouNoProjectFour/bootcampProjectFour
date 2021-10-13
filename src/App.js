@@ -35,9 +35,10 @@ function App() {
     return array;
   }
 
+
   // effect to initiate starting states on page load
   useEffect(() => {
-    const shuffledWords = shuffle([...WORDS]);
+    const shuffledWords = shuffle(WORDS);
     const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
     setRound(0);
@@ -90,6 +91,7 @@ function App() {
     } 
   }, [round, startingWord, randomWords]);
 
+
   // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
   const handleClick = (e, individualWord) => {
     const copiedRandomWords = [...randomWords];
@@ -108,10 +110,10 @@ function App() {
     }
   }
 
+
   return (
     <div className="App">
       <h1>What Do You No?</h1>
-
       {
         round < 10 ? (
           combinedWords.map((individualWord, index) => {
