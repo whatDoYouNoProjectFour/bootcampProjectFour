@@ -1,8 +1,10 @@
-import './App.css';
+import '../styles/App.css';
 import axios from 'axios';
 // import database from './firebase';
-import Footer from './Footer';
-import Score from './Score';
+import Footer from './components/Footer';
+import Score from './components/Score';
+import Header from './components/Header';
+// import ProgressBar from './ProgressBar';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -93,34 +95,41 @@ function App() {
 
   return (
     <div className="App">
-      <h1>What Do You No?</h1>
+      <Header />
 
-      {/* display buttons until round 10 */}
-      {
-        round < 10 ? (
-          combinedWords.map((individualWord, index) => {
-            return (
-              <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
-                {individualWord.word}
-              </button>
-            )
-          })
-        ) : null
-      }
-      {/* display definition until round 10 */}
-      {
-        round < 10 ? (
-          <p>{definition}</p>
-        ) : null
-      }
+      <main>
+        {/* display buttons until round 10 */}
+        {
+          round < 10 ? (
+            combinedWords.map((individualWord, index) => {
+              return (
+                <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
+                  {individualWord.word}
+                </button>
+              )
+            })
+          ) : null
+        }
 
-      {/* added score property to update score */}
-      {/* added round,setRound property to update round and make ternary operator for contents */}
+        {/* display definition until round 10 */}
+
+        {
+          round < 10 ? (
+            <p>{definition}</p>
+          ) : null
+        }
+
+        {/* added score property to update score */}
+        {/* added round,setRound property to update round and make ternary operator for contents */}
+      </main>
+
       <Score
         score={score}
         round={round}
         setRound={setRound}
       />
+
+      {/* <ProgressBar /> */}
       <Footer />
     </div>
   );
