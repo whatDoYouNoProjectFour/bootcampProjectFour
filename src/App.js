@@ -45,12 +45,13 @@ function App() {
     setRandomWords(shuffledWords);
     setRound(0);
     setStartingWord(newWord);
+    console.log('hihi')
   }, []);
 
 
   // secondary effect to make api call and get homophones and definintions of randomWords
   useEffect(() => {
-    console.log(randomWords);
+    // console.log(randomWords);
 
     if (startingWord !== '' && startingWord !== undefined) {
       axios({
@@ -64,6 +65,7 @@ function App() {
       }).then(homophone => {
         // filter returned words for words that have valid definitions and store in state
         const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
+
         setDefinition(wordWithDefinition[0].defs[0]);
 
         const unsorted = [wordWithDefinition[0].word, startingWord]
@@ -85,20 +87,28 @@ function App() {
           }
         })
           // use sort method to randomly change order of objects in array
-          .sort((homophone, startingWord) => homophone.sort - startingWord.sort);
-
+          .sort((homophone, startingWord) => homophone.sort - startingWord.sort)
         // store sorted result in state
         setCombinedWords(sorted);
+        // const defi = sorted.filter(res => console.log(res.definition));
+        // console.log(defi)
+        // setDefinition(defi);
+
       })
     }
   }, [round, startingWord, randomWords]);
 
   // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
   const handleClick = (e, individualWord) => {
-    const copiedRandomWords = [...randomWords];
-    const newWord = copiedRandomWords.pop();
-    setStartingWord(newWord);
-    setRandomWords(copiedRandomWords);
+
+    const generateNewWord = () => {
+      const copiedRandomWords = [...randomWords];
+      const newWord = copiedRandomWords.pop();
+      setStartingWord(newWord);
+      setRandomWords(copiedRandomWords);
+    }
+
+
 
     // Will add score when user got the right answer
     // Also going to update round useState to re-render the useEffect
@@ -107,25 +117,31 @@ function App() {
     if (checkAnswer === null) {
 
       if (individualWord.definition) {
-        console.log('you got it!');
+        console.log('you got it!', round);
+
         setScore(score + 1);
         setCheckAnswer(true);
         setTimeout(() => {
           setRound(round + 1)
+          generateNewWord();
           setCheckAnswer(null)
-        }, 3000);
+        }, 1200);
+
       } else {
         // Even user got wrong answer, update round to display next question.
+        console.log('wrong', round)
+
         setCheckAnswer(false);
         setTimeout(() => {
           setRound(round + 1)
+          generateNewWord();
           setCheckAnswer(null)
-        }, 3000);
+        }, 1200);
       }
 
       // need to be more fancy
     } else {
-      alert("Don't even think about it")
+      console.log('dont click')
     }
   }
 
@@ -153,13 +169,13 @@ function App() {
       {
         // user can only see this message whene checkAnser true or false
         checkAnswer === null ? null : (
-          <p>
+          <>
             {
               checkAnswer === true ? (
                 <p>right</p>
               ) : (<p>wrong</p>)
             }
-          </p>
+          </>
         )
       }
 
