@@ -1,25 +1,27 @@
-import './App.css';
+// packages
 import axios from 'axios';
 // import database from './firebase';
-import Footer from './Footer';
-import Score from './Score';
+// components
+import Footer from './components/Footer';
+import Score from './components/Score';
+// other files
+import './App.css';
+// hooks
 import { useState, useEffect } from 'react';
 
-
+// static array of homophonous words
 const WORDS = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
+
 
 function App() {
   // declare state variables 
   const [randomWords, setRandomWords] = useState([]);
+  const [startingWord, setStartingWord] = useState(''); 
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
-  // added score useState to update user score.
   const [score, setScore] = useState(0);
-  // added round useState to re-render the useEffect that update new word for next question. This will update when user got the right answer.
   const [round, setRound] = useState(-1);
-  const [startingWord, setStartingWord] = useState(''); 
 
-  // function to randomly select an item from an array
   // const randomize = (randomArray) => {
   //   const random = Math.floor(Math.random() * randomArray.length);
   //   return random
@@ -31,32 +33,23 @@ function App() {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-}
+  }
 
-
-  // Setting the random words array in state when app loads for the first time
+  // effect to initiate starting states on page load
   useEffect(() => {
     const shuffledWords = shuffle([...WORDS]);
-    const newWord = shuffledWords.pop();
-    
-
-    // hardcoded array of 10 homophonous words
+    const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
     setRound(0);
     setStartingWord(newWord);
   }, []);
   
   
-  // secondary useEffect to make api call and find homophones of randomWords
+  // secondary effect to make api call and get homophones and definintions of randomWords
   useEffect(() => {
-    // get random starting word from hardcoded array to pass into axios query param
-    
-    // const copiedRandomWords = [...randomWords]
-    // const newWord = copiedRandomWords.splice([randomize(randomWords)], 1);
-    // const startingWord = newWord[0];
-    // console.log(startingWord);
+    console.log(randomWords);
         
-    if (startingWord !== '') {
+    if (startingWord !== '' && startingWord !== undefined) {
       axios({
         url: 'https://api.datamuse.com/words',
         method: 'GET',
@@ -70,9 +63,9 @@ function App() {
         const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
         setDefinition(wordWithDefinition[0].defs[0]);
 
-        const unshuffled = [wordWithDefinition[0].word, startingWord]
-        // map unshuffled array to produce a new array of shuffled objects that contain the word and definition
-        const shuffled = unshuffled.map(word => {
+        const unsorted = [wordWithDefinition[0].word, startingWord]
+        // map unsorted array to produce a new array of sorted objects that contain the word and definition
+        const sorted = unsorted.map(word => {
           // condition to check if word has a definition (always the api result) and return an object with that property
           if (wordWithDefinition[0].word === word) {
             return ({
@@ -91,30 +84,25 @@ function App() {
           // use sort method to randomly change order of objects in array
           .sort((homophone, startingWord) => homophone.sort - startingWord.sort);
 
-        // store shuffled result in state
-        setCombinedWords(shuffled);
-        // console.log(shuffled);
-        
-        // setRandomWords(copiedRandomWords);
+        // store sorted result in state
+        setCombinedWords(sorted);        
       })
     } 
   }, [round, startingWord, randomWords]);
 
-  // event handler to evaluate if word matches definition and increases score
+  // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
   const handleClick = (e, individualWord) => {
-
     const copiedRandomWords = [...randomWords];
     const newWord = copiedRandomWords.pop();
     setStartingWord(newWord);
+    setRandomWords(copiedRandomWords);
 
-    // Will add score when user got the right answer
-    // Also going to update round useState to re-render the useEffect
+    // increase score if the clicked word matches definition, and update round
     if (individualWord.definition) {
       // console.log('you got it!');
       setScore(score + 1);
       setRound(round + 1);
     } else {
-      // Even user got wrong answer, update round to display next question.
       // console.log('wrong :(');
       setRound(round + 1);
     }
@@ -124,7 +112,6 @@ function App() {
     <div className="App">
       <h1>What Do You No?</h1>
 
-      {/* display buttons until round 10 */}
       {
         round < 10 ? (
           combinedWords.map((individualWord, index) => {
@@ -136,15 +123,12 @@ function App() {
           })
         ) : null
       }
-      {/* display definition until round 10 */}
       {
         round < 10 ? (
           <p>{definition}</p>
         ) : null
       }
 
-      {/* added score property to update score */}
-      {/* added round,setRound property to update round and make ternary operator for contents */}
       <Score
         score={score}
         round={round}
