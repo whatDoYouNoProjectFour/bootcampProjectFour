@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Score from './components/Score';
+import ProgressBar from './components/ProgressBar';
 // other files
 import './styles/App.css';
 // hooks
@@ -24,6 +25,7 @@ function App() {
   // added score useState to update user score.
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(-1);
+  const [progress, setProgress] = useState(null);
 
   // const randomize = (randomArray) => {
   //   const random = Math.floor(Math.random() * randomArray.length);
@@ -43,6 +45,7 @@ function App() {
     const shuffledWords = shuffle([...WORDS]);
     const newWord = shuffledWords.pop();
     setRandomWords(shuffledWords);
+    setProgress(10);
     setRound(0);
     setStartingWord(newWord);
   }, []);
@@ -95,10 +98,23 @@ function App() {
 
   // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
   const handleClick = (e, individualWord) => {
-    const copiedRandomWords = [...randomWords];
-    const newWord = copiedRandomWords.pop();
-    setStartingWord(newWord);
-    setRandomWords(copiedRandomWords);
+    const generateNewWord = () => {
+      const copiedRandomWords = [...randomWords];
+      const newWord = copiedRandomWords.pop();
+      setStartingWord(newWord);
+      setRandomWords(copiedRandomWords);
+    }
+
+    const updateRound = () => {
+      setCombinedWords([]);
+      setCheckAnswer(true);
+      setProgress(progress + 10)
+      setTimeout(() => {
+        setRound(round + 1)
+        generateNewWord()
+        setCheckAnswer(null)
+      }, 1000);
+    }
 
     // Will add score when user got the right answer
     // Also going to update round useState to re-render the useEffect
@@ -108,24 +124,19 @@ function App() {
 
       if (individualWord.definition) {
         console.log('you got it!');
+
         setScore(score + 1);
-        setCheckAnswer(true);
-        setTimeout(() => {
-          setRound(round + 1)
-          setCheckAnswer(null)
-        }, 3000);
+        updateRound();
+
       } else {
         // Even user got wrong answer, update round to display next question.
-        setCheckAnswer(false);
-        setTimeout(() => {
-          setRound(round + 1)
-          setCheckAnswer(null)
-        }, 3000);
+        updateRound();
+
       }
 
       // need to be more fancy
     } else {
-      alert("Don't even think about it")
+      // alert("Don't even think about it")
     }
   }
 
@@ -153,13 +164,13 @@ function App() {
       {
         // user can only see this message whene checkAnser true or false
         checkAnswer === null ? null : (
-          <p>
+          <>
             {
               checkAnswer === true ? (
                 <p>right</p>
               ) : (<p>wrong</p>)
             }
-          </p>
+          </>
         )
       }
 
@@ -171,7 +182,9 @@ function App() {
         setRound={setRound}
       />
 
-      {/* <ProgressBar /> */}
+      <ProgressBar
+        progress={progress}
+      />
       <Footer />
     </div>
   );
