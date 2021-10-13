@@ -41,7 +41,7 @@ function App() {
 
   // effect to initiate starting states on page load
   useEffect(() => {
-    const shuffledWords = shuffle(WORDS);
+    const shuffledWords = shuffle([...WORDS]);
     const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
     setRound(0);
@@ -156,13 +156,13 @@ function App() {
       {
         // user can only see this message whene checkAnser true or false
         checkAnswer === null ? null : (
-          <p>
+          <>
             {
               checkAnswer === true ? (
                 <p>right</p>
               ) : (<p>wrong</p>)
             }
-          </p>
+          </>
         )
       }
 
