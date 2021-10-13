@@ -5,6 +5,7 @@ import axios from 'axios';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Score from './components/Score';
+import ProgressBar from './components/ProgressBar';
 // other files
 import './styles/App.css';
 // hooks
@@ -21,9 +22,9 @@ function App() {
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
   const [checkAnswer, setCheckAnswer] = useState(null);
-  // added score useState to update user score.
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(-1);
+  const [progress, setProgress] = useState(null);
 
   // const randomize = (randomArray) => {
   //   const random = Math.floor(Math.random() * randomArray.length);
@@ -44,6 +45,7 @@ function App() {
     const shuffledWords = shuffle([...WORDS]);
     const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
+    setProgress(10);
     setRound(0);
     setStartingWord(newWord);
   }, []);
@@ -51,8 +53,6 @@ function App() {
 
   // secondary effect to make api call and get homophones and definintions of randomWords
   useEffect(() => {
-    console.log(randomWords);
-
     if (startingWord !== '' && startingWord !== undefined) {
       axios({
         url: 'https://api.datamuse.com/words',
@@ -63,7 +63,7 @@ function App() {
           rel_hom: startingWord,
         }
       }).then(homophone => {
-        // filter returned words for words that have valid definitions and store in state
+        // filter returned homophones for words that have valid definitions and store in state
         const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
         setDefinition(wordWithDefinition[0].defs[0]);
 
@@ -84,11 +84,7 @@ function App() {
               sort: Math.random(),
             })
           }
-        })
-          // use sort method to randomly change order of objects in array
-          .sort((homophone, startingWord) => homophone.sort - startingWord.sort);
-
-        // store sorted result in state
+        }).sort((homophone, startingWord) => homophone.sort - startingWord.sort);
         setCombinedWords(sorted);
       })
     }
@@ -97,37 +93,36 @@ function App() {
 
   // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
   const handleClick = (e, individualWord) => {
-    const copiedRandomWords = [...randomWords];
-    const newWord = copiedRandomWords.pop();
-    setStartingWord(newWord);
-    setRandomWords(copiedRandomWords);
+    const generateNewWord = () => {
+      const copiedRandomWords = [...randomWords];
+      const newWord = copiedRandomWords.pop();
+      setStartingWord(newWord);
+      setRandomWords(copiedRandomWords);
+    }
 
-    // Will add score when user got the right answer
-    // Also going to update round useState to re-render the useEffect
+    const updateRound = () => {
+      setCombinedWords([]);
+      setCheckAnswer(true);
+      setProgress(progress + 10)
+      setTimeout(() => {
+        setRound(round + 1);
+        generateNewWord();
+        setCheckAnswer(null);
+      }, 1000);
+    }
 
     // user can only choose answer when checkAnser === null
     if (checkAnswer === null) {
-
       if (individualWord.definition) {
         console.log('you got it!');
         setScore(score + 1);
-        setCheckAnswer(true);
-        setTimeout(() => {
-          setRound(round + 1)
-          setCheckAnswer(null)
-        }, 3000);
+        updateRound();
       } else {
-        // Even user got wrong answer, update round to display next question.
-        setCheckAnswer(false);
-        setTimeout(() => {
-          setRound(round + 1)
-          setCheckAnswer(null)
-        }, 3000);
+        updateRound();
       }
-
       // need to be more fancy
     } else {
-      alert("Don't even think about it")
+      // alert("Don't even think about it")
     }
   }
 
@@ -135,12 +130,14 @@ function App() {
   return (
     <div className="App">
       <Header />
-
       {
         round < 10 ? (
           combinedWords.map((individualWord, index) => {
             return (
-              <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
+              <button 
+                key={index} 
+                onClick={(e) => {handleClick(e, individualWord)}}
+              >
                 {individualWord.word}
               </button>
             )
@@ -165,16 +162,14 @@ function App() {
           </>
         )
       }
-
-      {/* added score property to update score */}
-      {/* added round,setRound property to update round and make ternary operator for contents */}
       <Score
         score={score}
         round={round}
         setRound={setRound}
       />
-
-      {/* <ProgressBar /> */}
+      <ProgressBar
+        progress={progress}
+      />
       <Footer />
     </div>
   );
