@@ -1,9 +1,9 @@
 import '../styles/App.css';
 import axios from 'axios';
 // import database from './firebase';
-import Footer from './Footer';
-import Score from './Score';
-import Header from './Header';
+import Footer from './components/Footer';
+import Score from './components/Score';
+import Header from './components/Header';
 // import ProgressBar from './ProgressBar';
 import { useState, useEffect } from 'react';
 
