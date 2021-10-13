@@ -75,10 +75,9 @@ function App() {
       })
     }
   }, [round, randomWords]);
- 
+
   // event handler to evaluate if word matches definition and increases score
   const handleClick = (e, individualWord) => {
-
     // Will add score when user got the right answer
     // Also going to update round useState to re-render the useEffect
     if (individualWord.definition) {
@@ -131,7 +130,8 @@ function App() {
         setRound={setRound}
       />
 
-      <Leaderboard />
+      <Leaderboard 
+      />
       
       <Footer />
     </div>

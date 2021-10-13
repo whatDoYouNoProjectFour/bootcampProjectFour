@@ -31,7 +31,6 @@ function Leaderboard() {
     }, []);
 
     const userNameChange = function(event) {
-
         setUserName(event.target.value);
     }
 
@@ -43,6 +42,7 @@ function Leaderboard() {
             <input type="text" 
             id="userName" 
             onChange={userNameChange}/>
+            
 
             <button type="submit">Get your score on the board!</button>
             </form>
