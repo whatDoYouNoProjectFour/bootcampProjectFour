@@ -24,11 +24,7 @@ function App() {
   const [checkAnswer, setCheckAnswer] = useState(null);
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(-1);
-<<<<<<< HEAD
-  const [progress, setProgress] = useState(null); 
-=======
   const [progress, setProgress] = useState(null);
->>>>>>> fa23e34c20d998c7e42b1da523495722193ea949
 
   // const randomize = (randomArray) => {
   //   const random = Math.floor(Math.random() * randomArray.length);
@@ -100,22 +96,7 @@ function App() {
       const newWord = copiedRandomWords.pop();
       setStartingWord(newWord);
       setRandomWords(copiedRandomWords);
-<<<<<<< HEAD
-    } 
-
-  const updateRound = () => {
-    setCombinedWords([]);
-    setCheckAnswer(true);
-    setProgress(progress + 10)
-    setTimeout(() => {
-      setRound(round + 1)
-      generateNewWord()
-      setCheckAnswer(null)
-    }, 1000);
-  }
-=======
     }
->>>>>>> fa23e34c20d998c7e42b1da523495722193ea949
 
     const updateRound = () => {
       setCombinedWords([]);
@@ -132,19 +113,10 @@ function App() {
     if (checkAnswer === null) {
       if (individualWord.definition) {
         console.log('you got it!');
- 
         setScore(score + 1);
         updateRound();
-<<<<<<< HEAD
-        
-      } else {
-        // Even user got wrong answer, update round to display next question.
-        updateRound();
-        
-=======
       } else {
         updateRound();
->>>>>>> fa23e34c20d998c7e42b1da523495722193ea949
       }
       // need to be more fancy
     } else {
@@ -192,12 +164,7 @@ function App() {
         round={round}
         setRound={setRound}
       />
-<<<<<<< HEAD
-
-      <ProgressBar 
-=======
       <ProgressBar
->>>>>>> fa23e34c20d998c7e42b1da523495722193ea949
         progress={progress}
       />
       <Footer />
