@@ -1,17 +1,19 @@
-import database from './firebase.js'
+import database from '../firebase.js'
 import { useEffect, useState } from 'react';
-import { onValue, ref } from 'firebase/database';
+import { onValue, ref, push } from 'firebase/database';
 
-function Leaderboard() {
+function Leaderboard(props) {
+    console.log(props);
     const [leaderboard, setLeaderboard] = useState([]);
     const [userName, setUserName] = useState('');
+    const [finalScore, setFinalScore] = useState();
 
     useEffect(function() {
 
         const dbRef = ref(database);
 
         onValue(dbRef, function(databaseShot) {
-            console.log(databaseShot.val());
+            // console.log(databaseShot.val());
 
             const data = databaseShot.val();
 
@@ -27,14 +29,36 @@ function Leaderboard() {
             }
             setLeaderboard(leaderboardArray);
         })
-
     }, []);
 
     const userNameChange = function(event) {
-
         setUserName(event.target.value);
     }
 
+    // const userScoreChange = function() {
+    //     setFinalScore(props.finalScore)
+    //     console.log(finalScore);
+    // }
+
+    const submitHandle = function(event) {
+        event.preventDefault();
+
+        if (userName ) {
+            const dbRef = ref(database);
+
+            const userNameAndScore = {
+                score: finalScore,
+                username: userName
+            }
+
+            push(dbRef, userNameAndScore);
+        
+        }
+        else {
+            console.log(`Please finish`);
+        }
+    }
+    
     return (
 
         <div>
@@ -42,9 +66,16 @@ function Leaderboard() {
             <label htmlFor="userName">Type your name</label>
             <input type="text" 
             id="userName" 
-            onChange={userNameChange}/>
+            onChange={userNameChange}
+            value={userName}
+            />
 
-            <button type="submit">Get your score on the board!</button>
+            <p>Your final score: {props.finalScore}</p>
+
+            <button type="submit"
+            onClick={submitHandle}>
+                Get your score on the board!
+            </button>
             </form>
         </div>
     )
