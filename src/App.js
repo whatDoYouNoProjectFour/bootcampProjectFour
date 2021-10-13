@@ -4,6 +4,7 @@ import axios from 'axios';
 import Footer from './Footer';
 import Score from './Score';
 import { useState, useEffect } from 'react';
+import Leaderboard from './Leaderboard';
 
 function App() {
   // hardcoded array of 10 homophonous words
@@ -121,6 +122,9 @@ function App() {
         round={round}
         setRound={setRound}
       />
+
+      <Leaderboard />
+      
       <Footer />
     </div>
   );
