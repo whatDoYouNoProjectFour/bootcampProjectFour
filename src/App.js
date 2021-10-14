@@ -11,6 +11,7 @@ import ProgressBar from './components/ProgressBar';
 import './styles/App.css';
 // hooks
 import { useState, useEffect } from 'react';
+import useShuffle from './useShuffle.js';
 // import Leaderboard from './components/Leaderboard';
 
 // static array of homophonous words
@@ -28,23 +29,27 @@ function App() {
   const [round, setRound] = useState(-1);
   const [progress, setProgress] = useState(null);
 
+  // custom hook
+  const [array, shuffleArray] = useShuffle([]);
+
   // const randomize = (randomArray) => {
   //   const random = Math.floor(Math.random() * randomArray.length);
   //   return random
   // }
 
-  const shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
+  // const shuffle = (array) => {
+  //   for (let i = array.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [array[i], array[j]] = [array[j], array[i]];
+  //   }
+  //   return array;
+  // }
 
 
   // effect to initiate starting states on page load
   useEffect(() => {
-    const shuffledWords = shuffle([...WORDS]);
+    // setArray(WORDS);
+    const shuffledWords = shuffleArray([...WORDS]);
     const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
     setProgress(0);
