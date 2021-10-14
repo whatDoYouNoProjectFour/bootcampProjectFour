@@ -1,5 +1,6 @@
 
 const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }) => {
+
 	return (
 		<div className="wrapper">
 			{
@@ -18,10 +19,9 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 				round < 10 ? (
 					combinedWords.map((individualWord, index) => {
 						return (
-							<button 
-                				key={index} 
-                				onClick={(e) => {handleClick(e, individualWord)}}
-							>
+							<button
+								key={index}
+								onClick={(e) => { handleClick(e, individualWord) }}>
 								{individualWord.word}
 							</button>
 						)
