@@ -322,6 +322,21 @@ footer p {
   z-index: 1;
 }
 
+/* =======
+Server Down
+========= */
+
+.serverDown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2rem;
+  height: 200px;
+}
+.serverDown p {
+  margin: 0;
+}
+
 /* Title */
 
 header {
