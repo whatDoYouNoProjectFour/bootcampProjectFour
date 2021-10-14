@@ -9,14 +9,14 @@ const Score = ({ round, score, setStartGame, setRound }) => {
     <>
       {/* display scroe until round 10 */}
       {round < 10 ? (
-        <h2>Score: {score}</h2>
+        <h2>Score: <span className="score">{score}</span></h2>
 
       ) : (
         <div>
           <h2>Score: <span className="score">{score}</span></h2>
           <div className="outer animation">
             <div className="inner animation">
-              <h3>Game End</h3>
+              <h3>Game Over</h3>
             </div>
           </div>
           <button onClick={startNewGame}>Start New Game</button>

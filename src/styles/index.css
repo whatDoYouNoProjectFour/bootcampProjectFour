@@ -369,7 +369,7 @@ h1 span {
   z-index: 0;
 }
 
-/* answer message */
+/* answer message and score */
 .answerContainer {
   padding: 4.5%;
 }
@@ -384,11 +384,20 @@ h1 span {
   color: red;
 }
 
+.score {
+  color: var(--blue);
+}
 
-/* Endgame animation -- inspired by Michael @baumicon on Codepen*/
 
+/* Endgame animation -- inspired by Michael, @baumicon on Codepen */
 
-.outer{
+h3 {
+  font-size: 3rem;
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+
+.outer {
   width: 500px;
   height: 500px;
   position: absolute;
@@ -400,7 +409,7 @@ h1 span {
 }
 
 .inner {
-    width: 30px;
+    width: 300px;
     height: 300px;
     position: absolute;
     top: 50%;
@@ -419,6 +428,7 @@ h1 span {
         opacity: 1;
         background-position: 0 0;
         transform: translate(-50%, -50%);
+        color: var(--neon);
   }
   90% {
         opacity: 0.8;
