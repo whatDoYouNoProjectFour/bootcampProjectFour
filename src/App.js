@@ -28,6 +28,8 @@ function App() {
   const [round, setRound] = useState(-1);
   const [progress, setProgress] = useState(null);
 
+  const [serverDown, setServerDown] = useState(false);
+
   // const randomize = (randomArray) => {
   //   const random = Math.floor(Math.random() * randomArray.length);
   //   return random
@@ -45,7 +47,7 @@ function App() {
   // effect to initiate starting states on page load
   useEffect(() => {
     const shuffledWords = shuffle([...WORDS]);
-    const newWord = shuffledWords.pop();    
+    const newWord = shuffledWords.pop();
     setRandomWords(shuffledWords);
     setProgress(0);
     setRound(0);
@@ -64,30 +66,40 @@ function App() {
           rel_hom: startingWord,
         }
       }).then(homophone => {
-        // filter returned homophones for words that have valid definitions and store in state
-        const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
-        setDefinition(wordWithDefinition[0].defs[0]);
+        console.log(homophone);
+        if (homophone.statusText === "OK") {
+          // filter returned homophones for words that have valid definitions and store in state
+          const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
+          setDefinition(wordWithDefinition[0].defs[0]);
 
-        const unsorted = [wordWithDefinition[0].word, startingWord]
-        // map unsorted array to produce a new array of sorted objects that contain the word and definition
-        const sorted = unsorted.map(word => {
-          // condition to check if word has a definition (always the api result) and return an object with that property
-          if (wordWithDefinition[0].word === word) {
-            return ({
-              word,
-              definition: wordWithDefinition[0].defs[0],
-              sort: Math.random(),
-            })
-            // don't return definition property if it is the hardcoded original word
-          } else {
-            return ({
-              word,
-              sort: Math.random(),
-            })
-          }
-        }).sort((homophone, startingWord) => homophone.sort - startingWord.sort);
-        setCombinedWords(sorted);
+          const unsorted = [wordWithDefinition[0].word, startingWord]
+          // map unsorted array to produce a new array of sorted objects that contain the word and definition
+          const sorted = unsorted.map(word => {
+            // condition to check if word has a definition (always the api result) and return an object with that property
+            if (wordWithDefinition[0].word === word) {
+              return ({
+                word,
+                definition: wordWithDefinition[0].defs[0],
+                sort: Math.random(),
+              })
+              // don't return definition property if it is the hardcoded original word
+            } else {
+              return ({
+                word,
+                sort: Math.random(),
+              })
+            }
+          }).sort((homophone, startingWord) => homophone.sort - startingWord.sort);
+          setCombinedWords(sorted);
+        } else {
+          throw Error(homophone.statusText);
+        }
       })
+        .catch(error => {
+          if (error.message === "Network Error") {
+            setServerDown(true);
+          }
+        })
     }
   }, [round, startingWord, randomWords]);
 
@@ -108,17 +120,15 @@ function App() {
         setRound(round + 1);
         generateNewWord();
         setCheckAnswer(null);
-      }, 1000);
+      }, 1200);
     }
-    
+
     // user can only choose answer when checkAnser === null
     if (checkAnswer === null) {
       if (individualWord.definition) {
-        setCheckAnswer(true);
-        console.log('you got it!');
+        updateRound();
         setCheckAnswer(true);
         setScore(score + 1);
-        updateRound();
       } else {
         updateRound();
         setCheckAnswer(false);
@@ -133,7 +143,13 @@ function App() {
   return (
     <div className="App">
       <Header />
+      {
+        serverDown === true ? (
+          <h2>Server Down</h2>
+        ) : null
+      }
       <main>
+
         <MainGame
           round={round}
           combinedWords={combinedWords}
