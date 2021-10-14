@@ -1,4 +1,4 @@
-import Leaderboard from './Leaderboard';
+import UserInfoForm from './UserInfoForm';
 const Score = (props) => {
   // console.log(props);
   return (
@@ -14,10 +14,12 @@ const Score = (props) => {
 
         </div>
       )}
-      <Leaderboard 
+
+      <UserInfoForm 
       endRound={props.round}
       finalScore={props.score}
       />
+
     </>
 
   )
