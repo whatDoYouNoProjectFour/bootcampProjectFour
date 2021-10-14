@@ -186,10 +186,10 @@ function App() {
             round={round}
           />)
         }
-      </main>
       <ProgressBar
         progress={progress}
       />
+      </main>
       <Footer />
 
     </div>
