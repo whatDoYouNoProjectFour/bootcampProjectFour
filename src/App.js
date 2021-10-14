@@ -46,11 +46,10 @@ function App() {
     const shuffledWords = shuffle([...WORDS]);
     const newWord = shuffledWords.pop();
     setRandomWords(shuffledWords);
-    setProgress(10);
+    setProgress(0);
     setRound(0);
     setStartingWord(newWord);
   }, []);
-
 
   // secondary effect to make api call and get homophones and definintions of randomWords
   useEffect(() => {
