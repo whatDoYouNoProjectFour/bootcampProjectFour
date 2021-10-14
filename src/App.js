@@ -60,7 +60,7 @@ function App() {
   useEffect(() => {
     if (startingWord !== '' && startingWord !== undefined) {
       axios({
-        url: 'https://api.datamuse.com/wordsasdads',
+        url: 'https://api.datamuse.com/words',
         method: 'GET',
         dataResponse: 'json',
         params: {
