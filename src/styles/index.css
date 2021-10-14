@@ -253,10 +253,6 @@ a:focus {
   text-decoration: underline;
 }
 
-main p {
-  margin-bottom: 5rem;
-}
-
 button {
   display: inline-block;
   border: none;
@@ -301,6 +297,24 @@ footer p {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+}
+
+/* =======
+Server Down
+========= */
+
+.serverDown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2rem;
+  height: 200px;
+}
+h2.serverDownHeader {
+  margin-bottom: 1rem;
+}
+.serverDown p {
+  margin: 0;
 }
 
 /* Title */
@@ -355,8 +369,10 @@ h1 span {
   z-index: 0;
 }
 
-
 /* answer message */
+.answerContainer {
+  padding: 4.5%;
+}
 
 .answer {
   font-size: 1.6rem;
