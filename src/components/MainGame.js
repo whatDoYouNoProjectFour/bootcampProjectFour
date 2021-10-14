@@ -5,12 +5,16 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 		<div className="wrapper">
 			{
 				// user can only see this message whene checkAnser true or false
-				checkAnswer === null ? null : (
+				checkAnswer === null ? null : ( 
 					<>
 						{
 							checkAnswer === true ? 
-							(<p className="answer right">Right</p>) : 
-							(<p className="answer wrong">Wrong</p>)
+							(<div className="answerContainer">
+								<p className="answer right">Right</p>
+							</div>) : 
+							(<div className="answerContainer">
+							<p className="answer wrong">Wrong</p>
+							</div>)
 						}
 					</>
 				)
@@ -21,7 +25,8 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 						return (
 							<button
 								key={index}
-								onClick={(e) => { handleClick(e, individualWord) }}>
+								onClick={(e) => { handleClick(e, individualWord) }}
+							>
 								{individualWord.word}
 							</button>
 						)
@@ -30,7 +35,7 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 			}
 			{
 				round < 10 ? (
-					<h2>{definition}</h2>
+					<p className="definition">{definition}</p>
 				) : null
 			}
 
