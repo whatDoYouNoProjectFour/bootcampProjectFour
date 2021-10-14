@@ -60,7 +60,7 @@ function App() {
   useEffect(() => {
     if (startingWord !== '' && startingWord !== undefined) {
       axios({
-        url: 'https://api.datamuse.com/words',
+        url: 'https://api.datamuse.com/wordsasdads',
         method: 'GET',
         dataResponse: 'json',
         params: {
@@ -98,9 +98,7 @@ function App() {
         }
       })
         .catch(error => {
-          if (error.message === "Network Error") {
-            setServerDown(true);
-          }
+          setServerDown(true);
         })
     }
   }, [round, startingWord, randomWords]);
