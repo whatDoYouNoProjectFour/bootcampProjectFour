@@ -30,25 +30,11 @@ function App() {
   const [progress, setProgress] = useState(null);
 
   // custom hook
-  const [array, shuffleArray] = useShuffle([]);
-
-  // const randomize = (randomArray) => {
-  //   const random = Math.floor(Math.random() * randomArray.length);
-  //   return random
-  // }
-
-  // const shuffle = (array) => {
-  //   for (let i = array.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [array[i], array[j]] = [array[j], array[i]];
-  //   }
-  //   return array;
-  // }
+  const [shuffleArray] = useShuffle();
 
 
   // effect to initiate starting states on page load
   useEffect(() => {
-    // setArray(WORDS);
     const shuffledWords = shuffleArray([...WORDS]);
     const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
