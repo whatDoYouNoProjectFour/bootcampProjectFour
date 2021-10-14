@@ -56,7 +56,6 @@ function App() {
           rel_hom: startingWord,
         }
       }).then(homophone => {
-        console.log(homophone);
         if (homophone.statusText === "OK") {
           // filter returned homophones for words that have valid definitions and store in state
           const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
@@ -151,7 +150,7 @@ function App() {
             />
           </Route>
 
-          <Route path="/maingame">
+          <Route path="/game">
             <MainGame
               round={round}
               combinedWords={combinedWords}
