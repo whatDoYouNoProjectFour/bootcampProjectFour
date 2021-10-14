@@ -7,9 +7,9 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 				checkAnswer === null ? null : (
 					<>
 						{
-							checkAnswer === true ? (
-								<p className="answer right">Right</p>
-							) : (<p className="answer wrong">Wrong</p>)
+							checkAnswer === true ? 
+							(<p className="answer right">Right</p>) : 
+							(<p className="answer wrong">Wrong</p>)
 						}
 					</>
 				)
@@ -19,9 +19,9 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 					combinedWords.map((individualWord, index) => {
 						return (
 							<button 
-                key={index} 
-                onClick={(e) => {handleClick(e, individualWord)}}
-              >
+                				key={index} 
+                				onClick={(e) => {handleClick(e, individualWord)}}
+							>
 								{individualWord.word}
 							</button>
 						)
