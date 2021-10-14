@@ -1,6 +1,5 @@
 // packages
 import axios from 'axios';
-import database from './firebase';
 // components
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -14,7 +13,6 @@ import shuffle from './utilities.js';
 import words from './constants.js';
 // hooks
 import { useState, useEffect } from 'react';
-// import Leaderboard from './components/Leaderboard';
 
 
 

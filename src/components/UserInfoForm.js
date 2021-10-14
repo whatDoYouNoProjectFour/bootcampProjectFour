@@ -55,21 +55,21 @@ function UserInfoForm({finalScore}) {
     }
     
     return (
-        <div>
+        <div className="wrapper">
             <form>
-            <label htmlFor="userName">Type your name</label>
-            <input type="text" 
-            id="userName" 
-            onChange={userNameChange}
-            value={userName}
-            />
+                <input type="text" 
+                id="userName" 
+                onChange={userNameChange}
+                value={userName}
+                />
+                <label htmlFor="userName">Name</label>
 
-            <p>Your final score: {finalScore}</p>
+                <p>Your final score is {finalScore}</p>
 
-            <button type="submit"
-            onClick={submitHandle}>
-                Get your score on the board!
-            </button>
+                <button type="submit"
+                onClick={submitHandle}>
+                    Get your score on the board!
+                </button>
             </form>
 
             <Leaderboard 
