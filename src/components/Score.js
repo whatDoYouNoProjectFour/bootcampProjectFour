@@ -1,19 +1,24 @@
 import UserInfoForm from './UserInfoForm';
-const Score = (props) => {
+const Score = ({ round, score, setStartGame, setRound }) => {
   // console.log(props);
+  const startNewGame = () => {
+    setStartGame(false);
+    setRound(0);
+  }
   return (
     <>
       {/* display scroe until round 10 */}
-      {props.round < 10 ? (
-        <h3>Score: {props.score}</h3>
+      {round < 10 ? (
+        <h3>Score: {score}</h3>
 
       ) : (
         <div>
-          <h2>Score: {props.score}</h2>
+          <h2>Score: {score}</h2>
           <h3> Game End</h3>
-          <UserInfoForm 
-          endRound={props.round}
-          finalScore={props.score}
+          <button onClick={startNewGame}>Start New Game</button>
+          <UserInfoForm
+            endRound={round}
+            finalScore={score}
           />
         </div>
       )}
