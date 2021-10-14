@@ -1,7 +1,9 @@
-// function ProgressBar() {
-//     return(
-        
-//     )
-// }
+import { Line } from 'rc-progress';
 
-// export default ProgressBar();
+const ProgressBar = ({progress}) => (
+  <>
+     <Line percent={progress} strokeWidth="3" trailWidth="3" strokeColor="#6056f9" strokeLinecap='square'/>
+  </>
+);
+
+export default ProgressBar;

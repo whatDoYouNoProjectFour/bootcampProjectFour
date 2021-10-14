@@ -89,7 +89,7 @@ footer {
   bottom:0;
   width:100%;
   height: 7%;   
-  background: var(--blue);
+  /* background: var(--blue); */
 }
 
 footer p {
@@ -97,4 +97,58 @@ footer p {
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
+  z-index: 1;
+}
+
+/* Title */
+
+header{
+  background: white;
+  width: 100%;
+  padding: 20px 0;
+  position: relative;
+}
+
+header::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  height: 20px;
+  width: 100%;
+  left: 0;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/23618/rip.svg) bottom;
+  background-size: 200%;
+}
+
+h1 {
+  padding: 2rem;
+  font-family: 'Josefin Slab', sans-serif;
+  font-size: 5rem;
+  background-color: var(--blue);
+  color: var(--neon);
+}
+
+
+h1 span {
+  display: inline-block;
+  background-color: var(--neon);
+  color: var(--blue);
+  border: 4px solid black;
+  padding: 25px 10px 25px 10px;
+  border-radius: 25px;
+  line-height: 3.5rem;
+  height: 2.5rem;
+}
+
+
+/* Progress Bar */
+
+.rc-progress-line {
+  position:absolute;
+  color: #fff;
+  left: 0;
+  bottom:0;
+  width:100%;
+  height: 7%;   
+  z-index: 0;
 }
