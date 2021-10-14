@@ -11,6 +11,7 @@ import ProgressBar from './components/ProgressBar';
 import './styles/App.css';
 // hooks
 import { useState, useEffect } from 'react';
+// import Leaderboard from './components/Leaderboard';
 
 // static array of homophonous words
 const WORDS = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
@@ -110,10 +111,11 @@ function App() {
         setCheckAnswer(null);
       }, 1000);
     }
-
+    
     // user can only choose answer when checkAnser === null
     if (checkAnswer === null) {
       if (individualWord.definition) {
+        setCheckAnswer(true);
         console.log('you got it!');
         setCheckAnswer(true);
         setScore(score + 1);
@@ -126,6 +128,14 @@ function App() {
       // need to be more fancy
     } else {
       // alert("Don't even think about it")
+    }
+  }
+
+  const clickHandle = function(e) {
+    if (e.target.textContent === combinedWords[0].word) {
+      console.log('you got it!');
+    } else {
+      console.log('wrong :(');
     }
   }
 
@@ -150,6 +160,7 @@ function App() {
         progress={progress}
       />
       <Footer />
+
     </div>
   );
 }
