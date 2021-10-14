@@ -1,4 +1,6 @@
 import UserInfoForm from './UserInfoForm';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 const Score = ({ round, score, setStartGame, setRound }) => {
   // console.log(props);
   const startNewGame = () => {
@@ -20,6 +22,8 @@ const Score = ({ round, score, setStartGame, setRound }) => {
             </div>
           </div>
           <button onClick={startNewGame}>Start New Game</button>
+ 
+          
           <UserInfoForm
             endRound={round}
             finalScore={score}
