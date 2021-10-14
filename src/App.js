@@ -4,6 +4,7 @@ import axios from 'axios';
 // components
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MainGame from './components/MainGame';
 import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
 import MainGame from './components/MainGame';
@@ -41,10 +42,11 @@ function App() {
     return array;
   }
 
+
   // effect to initiate starting states on page load
   useEffect(() => {
     const shuffledWords = shuffle([...WORDS]);
-    const newWord = shuffledWords.pop();
+    const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
     setProgress(10);
     setRound(0);
@@ -90,6 +92,7 @@ function App() {
       })
     }
   }, [round, startingWord, randomWords]);
+
 
   // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
   const handleClick = (e, individualWord) => {
@@ -138,7 +141,6 @@ function App() {
     <div className="App">
       <Header />
       <main>
-
         <MainGame
           round={round}
           combinedWords={combinedWords}
@@ -147,8 +149,6 @@ function App() {
           checkAnswer={checkAnswer}
         />
 
-        {/* added score property to update score */}
-        {/* added round,setRound property to update round and make ternary operator for contents */}
         <Score
           score={score}
           round={round}
@@ -157,9 +157,7 @@ function App() {
 
         <ProgressBar
           progress={progress}
-        />
-
-        
+        />  
       </main>
 
 
