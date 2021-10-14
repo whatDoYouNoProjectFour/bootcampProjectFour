@@ -2,7 +2,7 @@
 
 function Header() {
     return(
-      <header className="wrapper">
+      <header>
         <h1>WHAT DO YOU <span>NO?</span></h1>
       </header>
     )
