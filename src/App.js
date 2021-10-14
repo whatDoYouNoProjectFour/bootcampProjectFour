@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import MainGame from './components/MainGame';
 import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
+import PlayGame from './components/PlayGame';
 // other files
 import './styles/App.css';
 // hooks
@@ -29,6 +30,7 @@ function App() {
   const [progress, setProgress] = useState(null);
 
   const [serverDown, setServerDown] = useState(false);
+  const [startGame, setStartGame] = useState(false)
 
   // const randomize = (randomArray) => {
   //   const random = Math.floor(Math.random() * randomArray.length);
@@ -66,7 +68,7 @@ function App() {
           rel_hom: startingWord,
         }
       }).then(homophone => {
-        console.log(homophone);
+        // console.log(homophone);
         if (homophone.statusText === "OK") {
           // filter returned homophones for words that have valid definitions and store in state
           const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
@@ -117,9 +119,10 @@ function App() {
       setCombinedWords([]);
       setProgress(progress + 10)
       setTimeout(() => {
-        setRound(round + 1);
+        setDefinition('');
         generateNewWord();
         setCheckAnswer(null);
+        setRound(round + 1);
       }, 1200);
     }
 
@@ -149,7 +152,11 @@ function App() {
         ) : null
       }
       <main>
-
+        <Score
+          score={score}
+          round={round}
+          setRound={setRound}
+        />
         <MainGame
           round={round}
           combinedWords={combinedWords}
@@ -157,11 +164,28 @@ function App() {
           definition={definition}
           checkAnswer={checkAnswer}
         />
-        <Score
-          score={score}
-          round={round}
-          setRound={setRound}
-        />
+
+        {/* {
+          startGame ? (<Score
+            score={score}
+            round={round}
+            setRound={setRound}
+          />,
+            <MainGame
+              round={round}
+              combinedWords={combinedWords}
+              handleClick={handleClick}
+              definition={definition}
+              checkAnswer={checkAnswer}
+            />
+          ) : (<PlayGame
+            setStartGame={setStartGame}
+          />)
+        } */}
+
+
+
+
       </main>
       <ProgressBar
         progress={progress}

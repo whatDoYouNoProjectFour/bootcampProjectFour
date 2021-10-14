@@ -1,5 +1,6 @@
 
 const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }) => {
+
 	return (
 		<div className="wrapper">
 			{
