@@ -1,8 +1,8 @@
-
-
 function Header() {
     return(
-        <h1>WHAT DO YOU NO?</h1>
+      <header className="wrapper">          
+        <h1>WHAT DO YOU <span>NO?</span></h1>
+      </header>
     )
 }
 
