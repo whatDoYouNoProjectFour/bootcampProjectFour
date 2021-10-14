@@ -125,14 +125,6 @@ function App() {
     }
   }
 
-  const clickHandle = function(e) {
-    if (e.target.textContent === combinedWords[0].word) {
-      console.log('you got it!');
-    } else {
-      console.log('wrong :(');
-    }
-  }
-
   return (
     <div className="App">
       <Header />
