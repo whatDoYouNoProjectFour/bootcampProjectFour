@@ -8,6 +8,8 @@ import MainGame from './components/MainGame';
 import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
 import PlayGame from './components/PlayGame';
+// Router
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 // other files
 import './styles/App.css';
 // hooks
@@ -121,7 +123,7 @@ function App() {
         generateNewWord();
         setCheckAnswer(null);
         setRound(round + 1);
-      }, 1200);
+      }, 100);
     }
 
     // user can only choose answer when checkAnser === null
@@ -143,50 +145,80 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      {
-        serverDown === true ? (
-          <main className="serverDown">
-            <h2 className="serverDownHeader">Server Down</h2>
-            <p>Try later</p>
-          </main>
-        ) : (
-          <main>
-            {
-              startGame ? (
-                <div>
-                  <Score
-                    score={score}
-                    round={round}
-                    setRound={setRound}
-                    setStartGame={setStartGame}
-                  />
-                  <MainGame
-                    round={round}
-                    combinedWords={combinedWords}
-                    handleClick={handleClick}
-                    definition={definition}
-                    checkAnswer={checkAnswer}
-                  />
-                  <ProgressBar
-                    progress={progress}
-                  />
-                </div>
-              ) : (<PlayGame
-                setStartGame={setStartGame}
-                setRound={setRound}
-                round={round}
-              />)
-            }
-          </main>
+      <Router>
+        
+        <Header />
+        {
+          serverDown === true ? (
+            <main className="serverDown">
+              <h2 className="serverDownHeader">Server Down</h2>
+              <p>Try later</p>
+            </main>
+          ) : 
+          (
+        <div>
+          <Route exact path="/">
+            <PlayGame
+              setStartGame={setStartGame}
+              setRound={setRound}
+              round={round}
+            />
+          </Route>
+
+          <Route path="/maingame">
+            <MainGame
+              round={round}
+              combinedWords={combinedWords}
+              handleClick={handleClick}
+              definition={definition}
+              checkAnswer={checkAnswer}
+            /> 
+            <ProgressBar
+              progress={progress}
+            />
+            <Score
+              score={score}
+              round={round}
+              setRound={setRound}
+              setStartGame={setStartGame}
+            />
+          </Route> 
+        <Footer />
+      </div>
         )
       }
-
-
-      <Footer />
-
+        
+      </Router>
     </div>
-  );
-}
+    );
+  }
 
 export default App;
+// <main>
+//   {
+//     startGame ? (
+//       <div>
+//         <Score
+//           score={score}
+//           round={round}
+//           setRound={setRound}
+//           setStartGame={setStartGame}
+//         />
+//         <MainGame
+//           round={round}
+//           combinedWords={combinedWords}
+//           handleClick={handleClick}
+//           definition={definition}
+//           checkAnswer={checkAnswer}
+//         />
+//         <ProgressBar
+//           progress={progress}
+//         />
+//       </div>
+//     ) : (<PlayGame
+//       setStartGame={setStartGame}
+//       setRound={setRound}
+//       round={round}
+//     />)
+//   }
+// </main>

@@ -1,4 +1,6 @@
 import UserInfoForm from './UserInfoForm';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 const Score = ({ round, score, setStartGame, setRound }) => {
   // console.log(props);
   const startNewGame = () => {
@@ -10,12 +12,15 @@ const Score = ({ round, score, setStartGame, setRound }) => {
       {/* display scroe until round 10 */}
       {round < 10 ? (
         <h3>Score: {score}</h3>
-
       ) : (
         <div>
-          <h2>Score: {score}</h2>
-          <h3> Game End</h3>
+          <h3>Score: {score}</h3>
+          <h4> Game End</h4>
+
+
           <button onClick={startNewGame}>Start New Game</button>
+ 
+          
           <UserInfoForm
             endRound={round}
             finalScore={score}
