@@ -11,14 +11,13 @@ const Score = (props) => {
         <div>
           <h2>Score: {props.score}</h2>
           <h3> Game End</h3>
-
+          <UserInfoForm 
+          endRound={props.round}
+          finalScore={props.score}
+          />
         </div>
       )}
 
-      <UserInfoForm 
-      endRound={props.round}
-      finalScore={props.score}
-      />
 
     </>
 

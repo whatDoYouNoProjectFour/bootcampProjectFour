@@ -52,7 +52,6 @@ function App() {
     setStartingWord(newWord);
   }, []);
 
-
   // secondary effect to make api call and get homophones and definintions of randomWords
   useEffect(() => {
     if (startingWord !== '' && startingWord !== undefined) {
