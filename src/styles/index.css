@@ -41,19 +41,21 @@ h1 {
   padding: 2rem;
   font-family: 'Josefin Slab', sans-serif;
   font-size: 5rem;
-  border: 3px solid black;
   background-color: var(--blue);
   color: var(--neon);
 }
 
 h1 span {
+  display: inline-block;
   background-color: var(--neon);
   color: var(--blue);
   border: 4px solid black;
   padding: 25px 10px 25px 10px;
   border-radius: 25px;
-  line-height: 0.75;
+  line-height: 3.5rem;
+  height: 2.5rem;
 }
+
 
 body {
   margin: 0;
