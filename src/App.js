@@ -138,7 +138,6 @@ function App() {
           definition={definition}
           checkAnswer={checkAnswer}
         />
-
         <Score
           score={score}
           round={round}
