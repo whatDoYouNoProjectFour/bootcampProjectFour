@@ -7,10 +7,12 @@ import Footer from './components/Footer';
 import MainGame from './components/MainGame';
 import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
+import MainGame from './components/MainGame';
 // other files
 import './styles/App.css';
 // hooks
 import { useState, useEffect } from 'react';
+// import Leaderboard from './components/Leaderboard';
 
 // static array of homophonous words
 const WORDS = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
@@ -103,7 +105,6 @@ function App() {
 
     const updateRound = () => {
       setCombinedWords([]);
-      setCheckAnswer(true);
       setProgress(progress + 10)
       setTimeout(() => {
         setRound(round + 1);
@@ -111,10 +112,11 @@ function App() {
         setCheckAnswer(null);
       }, 1000);
     }
-
+    
     // user can only choose answer when checkAnser === null
     if (checkAnswer === null) {
       if (individualWord.definition) {
+        setCheckAnswer(true);
         console.log('you got it!');
         setScore(score + 1);
         updateRound();
@@ -124,6 +126,14 @@ function App() {
       // need to be more fancy
     } else {
       // alert("Don't even think about it")
+    }
+  }
+
+  const clickHandle = function(e) {
+    if (e.target.textContent === combinedWords[0].word) {
+      console.log('you got it!');
+    } else {
+      console.log('wrong :(');
     }
   }
 
@@ -144,11 +154,15 @@ function App() {
           round={round}
           setRound={setRound}
         />
+
+        <ProgressBar
+          progress={progress}
+        />  
       </main>
-      <ProgressBar
-        progress={progress}
-      />
+
+
       <Footer />
+
     </div>
   );
 }
