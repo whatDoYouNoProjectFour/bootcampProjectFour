@@ -1,7 +1,11 @@
 function Leaderboard ({leaderboard}) {
     return (
-        <div className="wrapper">
+        <div>
             <ul className="userScoreList">
+                <div className="ulHeadings">
+                    <h4>Players</h4>
+                    <h4>Score</h4>
+                </div>
 
             {
                 leaderboard.map(function(individualScore) {
@@ -9,7 +13,7 @@ function Leaderboard ({leaderboard}) {
                     return (
                         <li key={individualScore.key}>
                             <p className="userNameTag">{individualScore.userName}</p>
-                            <p className="userScoreTag">{individualScore.userScore}</p>
+                            <p className="userScoreTag">{individualScore.userScore} Points</p>
                         </li>
                     )
                 })

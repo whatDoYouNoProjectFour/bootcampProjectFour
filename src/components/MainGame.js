@@ -30,7 +30,7 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 			}
 			{
 				round < 10 ? (
-					<h2>{definition}</h2>
+					<p>{definition}</p>
 				) : null
 			}
 

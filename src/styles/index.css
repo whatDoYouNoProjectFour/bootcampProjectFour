@@ -203,6 +203,7 @@ template {
   display: none;
 }
 
+
 /* Additional reset */
 
 * {
@@ -384,14 +385,103 @@ h1 span {
   color: red;
 }
 
+/* Form Styling */
+form {
+  border: 2px solid var(--darkerNeon);
+  border-radius: 1rem;
+  margin: 0 10rem;
+  padding: 1rem;
+  position: relative;
+}
+
+form input[type=text] {
+  background: none;
+  border: 2px solid var(--darkerNeon);
+  border-radius: 1rem;
+  height: 2rem;
+}
+
+form label {
+  position:absolute;
+  left: 40%;
+  top: 1.3rem;
+  font-size: 1rem;
+  color: var(--blue);
+  transition: all 0.5s ease;
+}
+
+form input[type=text]:focus~label {
+  color: var(--darkerNeon);
+  top: .3rem;
+  font-size: 1rem;
+  background-color: var(--lightTeal);
+}
+
+form p {
+  margin: 1rem 0
+}
+
+form button {
+  margin: 0;
+}
 /* Leaderboard Styling */
 
 .userScoreList {
-  width: 80%;
-
+  margin: 0 10rem;
+  border: 2px solid var(--darkerNeon);
+  border-radius: 1rem;
 }
 
+.ulHeadings,
 .userScoreList li {
   display: flex;
   justify-content: space-between;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.ulHeadings {
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+.userScoreList li {
+  background-color: #6056f9;
+  border-radius: 1rem;
+}
+
+.userScoreList li p {
+  margin-bottom: 0;
+  word-wrap: break-word;
+}
+.userNameTag {
+  width: 50%;
+  color: var(--lightTeal);
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.userScoreTag {
+  color: var(--neon);
+}
+
+@media (max-width: 768px) {
+  form {
+    margin: 0;
+  }
+
+  form label {
+    left: 37%;
+    top: 1.4rem;
+  }
+
+  .userScoreList {
+    margin: 0;
+  }
+}
+
+@media (max-width: 414px) {
+  form label {
+    left: 42%;
+  }
 }

@@ -9,19 +9,19 @@ const Score = ({ round, score, setStartGame, setRound }) => {
     <>
       {/* display scroe until round 10 */}
       {round < 10 ? (
-        <h3>Score: {score}</h3>
+        <h2>Score: {score}</h2>
 
       ) : (
         <div>
           <h2>Score: {score}</h2>
           <h3> Game End</h3>
           <button onClick={startNewGame}>Start New Game</button>
-          <UserInfoForm
-            endRound={round}
-            finalScore={score}
-          />
         </div>
       )}
+      <UserInfoForm
+        endRound={round}
+        finalScore={score}
+      />
 
 
     </>
