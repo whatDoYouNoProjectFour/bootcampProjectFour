@@ -46,7 +46,7 @@ function App() {
     const shuffledWords = shuffle([...WORDS]);
     const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
-    setProgress(10);
+    setProgress(0);
     setRound(0);
     setStartingWord(newWord);
   }, []);
@@ -103,7 +103,6 @@ function App() {
 
     const updateRound = () => {
       setCombinedWords([]);
-      setCheckAnswer(true);
       setProgress(progress + 10)
       setTimeout(() => {
         setRound(round + 1);
@@ -116,10 +115,13 @@ function App() {
     if (checkAnswer === null) {
       if (individualWord.definition) {
         console.log('you got it!');
+        setCheckAnswer(true);
         setScore(score + 1);
         updateRound();
       } else {
         updateRound();
+        setCheckAnswer(false);
+
       }
       // need to be more fancy
     } else {
