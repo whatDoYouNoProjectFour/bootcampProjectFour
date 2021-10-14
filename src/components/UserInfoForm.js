@@ -3,18 +3,15 @@ import { useEffect, useState } from 'react';
 import { onValue, ref, push } from 'firebase/database';
 import Leaderboard from './Leaderboard.js';
 
-function UserInfoForm({endRound, finalScore}) {
-    // console.log(props);
+function UserInfoForm({finalScore}) {
     const [leaderboard, setLeaderboard] = useState([]);
     const [userName, setUserName] = useState('');
-    // const [finalScore, setFinalScore] = useState();
 
     useEffect(function() {
 
         const dbRef = ref(database);
 
         onValue(dbRef, function(databaseShot) {
-            // console.log(databaseShot.val());
 
             const data = databaseShot.val();
 
@@ -26,7 +23,8 @@ function UserInfoForm({endRound, finalScore}) {
                     userName: data[property].username,
                     userScore: data[property].score
                 }
-                leaderboardArray.push(userInfoObject);
+
+                leaderboardArray.unshift(userInfoObject);
             }
             setLeaderboard(leaderboardArray);
         })
@@ -48,7 +46,8 @@ function UserInfoForm({endRound, finalScore}) {
             }
 
             push(dbRef, userNameAndScore);
-        
+
+            setUserName('');
         }
         else {
             console.log(`Please finish`);
@@ -75,6 +74,7 @@ function UserInfoForm({endRound, finalScore}) {
 
             <Leaderboard 
             leaderboard={leaderboard}/>
+            
         </div>
     )
 }
