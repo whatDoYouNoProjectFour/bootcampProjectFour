@@ -1,6 +1,6 @@
 // packages
 import axios from 'axios';
-// import database from './firebase';
+import database from './firebase';
 // components
 import Header from './components/Header';
 import Footer from './components/Footer';
