@@ -152,7 +152,7 @@ function App() {
         ) : null
       }
       <main>
-        <Score
+        {/* <Score
           score={score}
           round={round}
           setRound={setRound}
@@ -163,29 +163,31 @@ function App() {
           handleClick={handleClick}
           definition={definition}
           checkAnswer={checkAnswer}
-        />
+        /> */}
 
-        {/* {
-          startGame ? (<Score
-            score={score}
-            round={round}
-            setRound={setRound}
-          />,
-            <MainGame
-              round={round}
-              combinedWords={combinedWords}
-              handleClick={handleClick}
-              definition={definition}
-              checkAnswer={checkAnswer}
-            />
+        {
+          startGame ? (
+            <div>
+              <Score
+                score={score}
+                round={round}
+                setRound={setRound}
+                setStartGame={setStartGame}
+              />
+              <MainGame
+                round={round}
+                combinedWords={combinedWords}
+                handleClick={handleClick}
+                definition={definition}
+                checkAnswer={checkAnswer}
+              />
+            </div>
           ) : (<PlayGame
             setStartGame={setStartGame}
+            setRound={setRound}
+            round={round}
           />)
-        } */}
-
-
-
-
+        }
       </main>
       <ProgressBar
         progress={progress}
