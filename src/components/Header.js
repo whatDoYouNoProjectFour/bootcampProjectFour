@@ -1,9 +1,9 @@
-
-
 function Header() {
-    return(
-        <h1>WHAT DO YOU NO?</h1>
-    )
+      return (
+            <header>
+                <h1>WHAT DO YOU <span>NO?</span></h1>
+            </header>
+      )
 }
 
 export default Header;
