@@ -7,7 +7,6 @@ import Footer from './components/Footer';
 import MainGame from './components/MainGame';
 import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
-import MainGame from './components/MainGame';
 // other files
 import './styles/App.css';
 // hooks
