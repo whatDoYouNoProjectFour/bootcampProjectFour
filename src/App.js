@@ -7,7 +7,6 @@ import Footer from './components/Footer';
 import MainGame from './components/MainGame';
 import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
-import MainGame from './components/MainGame';
 // other files
 import './styles/App.css';
 // hooks
@@ -48,7 +47,7 @@ function App() {
     const shuffledWords = shuffle([...WORDS]);
     const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
-    setProgress(10);
+    setProgress(0);
     setRound(0);
     setStartingWord(newWord);
   }, []);
@@ -118,22 +117,17 @@ function App() {
       if (individualWord.definition) {
         setCheckAnswer(true);
         console.log('you got it!');
+        setCheckAnswer(true);
         setScore(score + 1);
         updateRound();
       } else {
         updateRound();
+        setCheckAnswer(false);
+
       }
       // need to be more fancy
     } else {
       // alert("Don't even think about it")
-    }
-  }
-
-  const clickHandle = function(e) {
-    if (e.target.textContent === combinedWords[0].word) {
-      console.log('you got it!');
-    } else {
-      console.log('wrong :(');
     }
   }
 
@@ -148,19 +142,15 @@ function App() {
           definition={definition}
           checkAnswer={checkAnswer}
         />
-
         <Score
           score={score}
           round={round}
           setRound={setRound}
         />
-
-        <ProgressBar
-          progress={progress}
-        />  
       </main>
-
-
+      <ProgressBar
+        progress={progress}
+      />
       <Footer />
 
     </div>
