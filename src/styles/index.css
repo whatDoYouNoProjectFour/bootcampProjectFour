@@ -252,7 +252,7 @@ body {
 }
 
 .App {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   text-align: center;
 }
 
@@ -382,4 +382,16 @@ h1 span {
 
 .wrong {
   color: red;
+}
+
+/* Leaderboard Styling */
+
+.userScoreList {
+  width: 80%;
+
+}
+
+.userScoreList li {
+  display: flex;
+  justify-content: space-between;
 }

@@ -147,10 +147,10 @@ function App() {
           setRound={setRound}
         />
       </main>
-      <ProgressBar
+      {/* <ProgressBar
         progress={progress}
-      />
-      <Footer />
+      /> */}
+      {/* <Footer /> */}
 
     </div>
   );
