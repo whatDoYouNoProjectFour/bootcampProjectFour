@@ -1,5 +1,6 @@
-
+import UserInfoForm from './UserInfoForm';
 const Score = (props) => {
+  // console.log(props);
   return (
     <>
       {/* display scroe until round 10 */}
@@ -10,8 +11,15 @@ const Score = (props) => {
         <div>
           <h2>Score: {props.score}</h2>
           <h3> Game End</h3>
+
         </div>
       )}
+
+      <UserInfoForm 
+      endRound={props.round}
+      finalScore={props.score}
+      />
+
     </>
 
   )
