@@ -60,7 +60,7 @@ function App() {
   useEffect(() => {
     if (startingWord !== '' && startingWord !== undefined) {
       axios({
-        url: 'https://api.datamuse.com/wordsasdd',
+        url: 'https://api.datamuse.com/words',
         method: 'GET',
         dataResponse: 'json',
         params: {
@@ -147,7 +147,7 @@ function App() {
       {
         serverDown === true ? (
           <main className="serverDown">
-            <h2>Server Down</h2>
+            <h2 className="serverDownHeader">Server Down</h2>
             <p>Try later</p>
           </main>
         ) : (
