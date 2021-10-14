@@ -225,25 +225,6 @@ p {
   padding: 0;
 }
 
-h1 {
-  padding: 2rem;
-  font-family: "Josefin Slab", sans-serif;
-  font-size: 5rem;
-  background-color: var(--blue);
-  color: var(--neon);
-}
-
-h1 span {
-  display: inline-block;
-  background-color: var(--neon);
-  color: var(--blue);
-  border: 4px solid black;
-  padding: 25px 10px 25px 10px;
-  border-radius: 25px;
-  line-height: 3.5rem;
-  height: 2.5rem;
-}
-
 body {
   margin: 0;
   font-family: "Lato", sans-serif;
@@ -374,6 +355,9 @@ h1 span {
   z-index: 0;
 }
 
+
+/* answer message */
+
 .answer {
   font-size: 1.6rem;
   font-weight: bold;
@@ -382,4 +366,50 @@ h1 span {
 
 .wrong {
   color: red;
+}
+
+
+/* Endgame animation -- inspired by Michael @baumicon on Codepen*/
+
+
+.outer{
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png') no-repeat top left;
+  opacity: 0;
+}
+
+.inner {
+    width: 30px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png') no-repeat top left;
+    opacity: 0;
+  }
+  .animation {
+    opacity: 1;
+    animation: pop 1s steps(21, end) 0s 5;
+    animation-iteration-count: infinite;
+  }
+@keyframes pop {
+  0% {
+        opacity: 1;
+        background-position: 0 0;
+        transform: translate(-50%, -50%);
+  }
+  90% {
+        opacity: 0.8;
+  }
+  100% {
+        opacity: 0;
+        background-position: -3150px 0;
+        transform: translate(-50%, -50%);
+  }
 }

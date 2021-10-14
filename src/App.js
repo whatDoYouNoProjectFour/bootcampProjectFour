@@ -9,15 +9,13 @@ import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
 import PlayGame from './components/PlayGame';
 // other files
-import './styles/App.css';
+import './styles/index.css';
+import shuffle from './utilities.js';
+import words from './constants.js';
 // hooks
 import { useState, useEffect } from 'react';
-import useShuffle from './useShuffle.js';
 // import Leaderboard from './components/Leaderboard';
 
-
-// static array of homophonous words
-const WORDS = ['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'];
 
 
 function App() {
@@ -32,13 +30,11 @@ function App() {
   const [progress, setProgress] = useState(null);
   const [serverDown, setServerDown] = useState(false);
   const [startGame, setStartGame] = useState(false);
-  // custom hook
-  const [shuffleArray] = useShuffle();
 
 
   // effect to initiate starting states on page load
   useEffect(() => {
-    const shuffledWords = shuffleArray([...WORDS]);
+    const shuffledWords = shuffle([...words]);
     const newWord = shuffledWords.pop();    
     setRandomWords(shuffledWords);
     setProgress(0);
@@ -111,7 +107,7 @@ function App() {
         generateNewWord();
         setCheckAnswer(null);
         setRound(round + 1);
-      }, 1200);
+      }, 600);
     }
 
     // user can only choose answer when checkAnser === null
