@@ -204,7 +204,6 @@ template {
   display: none;
 }
 
-
 /* Additional reset */
 
 * {
@@ -235,8 +234,12 @@ body {
 }
 
 .App {
-  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper {
@@ -276,6 +279,7 @@ button {
 button:hover,
 button:focus {
   background: var(--neon);
+  text-decoration: none;
 }
 
 .startButton:focus,
@@ -291,12 +295,9 @@ button:active {
 }
 
 footer {
-  position: absolute;
-  color: #fff;
-  bottom: 0;
+  display: grid;
   width: 100%;
-  height: 7%;
-  /* background: var(--blue); */
+  margin-top: auto;
 }
 
 footer p {
@@ -304,7 +305,9 @@ footer p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  line-height: 2rem;
   z-index: 1;
+  color: #fff;
 }
 
 /* =======
@@ -330,7 +333,7 @@ h2.serverDownHeader {
 header {
   background: white;
   width: 100%;
-  padding: 20px 0;
+  padding-bottom: 20px;
   position: relative;
 }
 
@@ -365,15 +368,29 @@ h1 span {
   height: 2.5rem;
 }
 
+/* Homescreen */
+.welcome {
+  margin: 15px 26% 30px 26%;
+}
+
+.play {
+  margin: 30px 0;
+}
+
+.signature {
+  padding-left: 10px;
+}
+
 /* Progress Bar */
 
+footer p,
 .rc-progress-line {
-  position: absolute;
-  color: #fff;
-  left: 0;
-  bottom: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.rc-progress-line {
   width: 100%;
-  height: 7%;
   z-index: 0;
 }
 
@@ -393,9 +410,12 @@ h1 span {
 }
 
 .score {
-  color: var(--blue);
+  margin-top: 45px;
 }
 
+.score span {
+  color: var(--blue);
+}
 
 /* Endgame animation -- inspired by Michael, @baumicon on Codepen */
 
@@ -403,48 +423,51 @@ h3 {
   font-size: 3rem;
   margin-top: 1rem;
   line-height: 1.7;
+  width: 400px;
 }
 
 .outer {
   width: 500px;
-  height: 500px;
-  position: absolute;
-  top: 50%;
+  position: relative;
+  /* height: 600px; */
+  /* top: 26%; */
   left: 50%;
   transform: translate(-50%, -50%);
-  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png') no-repeat top left;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png")
+    no-repeat top left;
   opacity: 0;
 }
 
 .inner {
-    width: 300px;
-    height: 300px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png') no-repeat top left;
-    opacity: 0;
-  }
-  .animation {
-    opacity: 1;
-    animation: pop 1s steps(22, end) 0s 5;
-    animation-iteration-count: infinite;
-  }
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png")
+    no-repeat top left;
+  opacity: 0;
+}
+.animation {
+  opacity: 1;
+  animation: pop 1s steps(22, end) 0s 5;
+  animation-iteration-count: infinite;
+}
 @keyframes pop {
   0% {
-        opacity: 1;
-        background-position: 0 0;
-        transform: translate(-50%, -50%);
-        color: var(--neon);
+    opacity: 1;
+    background-position: 0 0;
+    transform: translate(-50%, -50%);
+    color: var(--neon);
   }
   90% {
-        opacity: 0.8;
+    opacity: 0.8;
   }
   100% {
-        opacity: 0;
-        background-position: -3150px 0;
-        transform: translate(-50%, -50%);
+    opacity: 0;
+    background-position: -3150px 0;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -457,8 +480,7 @@ form {
   position: relative;
 }
 
-
-form input[type=text] {
+form input[type="text"] {
   background: none;
   border: 2px solid var(--darkerNeon);
   border-radius: 1rem;
@@ -466,23 +488,23 @@ form input[type=text] {
 }
 
 form label {
-  position:absolute;
+  position: absolute;
   left: 40%;
   top: 1.3rem;
-  font-size: 1rem;
   color: var(--blue);
+  padding: 0 .25rem;
   transition: all 0.5s ease;
 }
 
-form input[type=text]:focus~label {
+form input[type="text"]:focus ~ label {
   color: var(--darkerNeon);
-  top: .3rem;
+  top: 0.3rem;
   font-size: 1rem;
   background-color: var(--lightTeal);
 }
 
 form p {
-  margin: 1rem 0
+  margin: 1rem 0;
 }
 
 form button {
@@ -512,6 +534,11 @@ form button {
   text-transform: uppercase;
 }
 
+.playersHeading {
+  width: 33%;
+  text-align: left;
+}
+
 .userScoreList li {
   background-color: #6056f9;
   border-radius: 1rem;
@@ -519,8 +546,10 @@ form button {
 
 .userScoreList li p {
   margin-bottom: 0;
+  padding: .5rem 0;
   word-wrap: break-word;
 }
+
 .userNameTag {
   width: 33%;
   color: var(--lightTeal);
@@ -534,11 +563,39 @@ form button {
 
 .delete {
   margin: 0;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   align-self: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1334px) {
+  footer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  footer p {
+    top: 0;
+    left: 0;
+    transform: translate(0);
+    color: var(--blue);
+    background-color: #E3F4F3;
+  }
+
+  .rc-progress-line {
+    z-index: 1;
+  }
+
+  .userScoreList {
+    margin: 2rem 5rem;
+  }
+}
+
+@media (max-width: 855px) {
+
+  main {
+    height: 20rem;
+  }
+
   form {
     margin: 0;
   }
@@ -548,13 +605,77 @@ form button {
     top: 1.4rem;
   }
 
+  main {
+    padding: 5% 0;
+  }
+
   .userScoreList {
-    margin: 0;
+    margin: 2rem 0;
+  }
+
+  /* =====
+  animation
+  ======== */
+
+  .outer {
+    top: 41%;
   }
 }
 
+@media (max-width: 580px) {
+  h1 {
+    font-size: 4rem;
+  }
+  .userScoreList li {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .userScoreList li p,
+  .delete {
+    margin: .5rem 0;
+  }
+
+  .userNameTag {
+    width: 100%;
+    text-align: center;
+  }
+
+  .playersHeading,
+  .deleteHeading {
+    display: none;
+  }
+
+  .scoreHeading {
+    margin: 0 auto;
+  }
+
+  main {
+    padding: 5% 0;
+  }
+}
 @media (max-width: 414px) {
+  h1 {
+    font-size: 3rem;
+  }
+
   form label {
-    left: 42%;
+    left: 39%;
+  }
+
+  button {
+    margin: 1rem 2rem;
+  }
+
+  main {
+    padding: 3rem 0;
+  }
+
+  .wrapper button:nth-of-type(2) {
+    margin-bottom: 3rem;
+  }
+
+  footer p {
+    font-size: 0.8rem;
   }
 }

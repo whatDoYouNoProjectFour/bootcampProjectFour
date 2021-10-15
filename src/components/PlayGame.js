@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 
+// homepage greeting when user first visits app
+
 const PlayGame = () => {
   return (
     <>
-      <h2>Click to start!</h2>
-
-      <Link className="startButton" to={"game"}>Start!</Link>
+      <h2 className="play">Welcome to What Do You No?</h2>
+      
+      <p className="welcome"> Match the correct homophone with the definition to score points. Submit your score to see how you stack up. Have fun!</p>
+      <p className="signature"> - Cal, Jun, Sara, and Seungmin</p>
+      <Link to={"game"} className="startButton">Click to Start!</Link>
     </>
   )
 }

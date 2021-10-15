@@ -1,10 +1,12 @@
 
 const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }) => {
 
+// renders JSX for main pieces of the game
+
+
 	return (
 		<div className="wrapper">
 			{
-				// user can only see this message whene checkAnser true or false
 				checkAnswer === null ? null : ( 
 					<>
 						{
@@ -25,7 +27,7 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 						return (
 							<button
 								key={index}
-								onClick={(e) => { handleClick(e, individualWord) }}
+								onClick={() => { handleClick(individualWord) }}
 							>
 								{individualWord.word}
 							</button>
