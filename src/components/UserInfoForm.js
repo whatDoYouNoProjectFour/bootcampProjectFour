@@ -36,7 +36,8 @@ function UserInfoForm({finalScore}) {
         setUserName(event.target.value);
     }
 
-    const submitHandle = function() {
+    const submitHandle = function(e) {
+        e.preventDefault();
         if (userName && finalScore) {
             const dbRef = ref(database);
 
@@ -56,9 +57,10 @@ function UserInfoForm({finalScore}) {
 
     const leaderboardScroll = useRef(null);
 
-    const scrollToComments = function() {
-        window.scrollTo({top: leaderboardScroll.current.offsetTop, behavior: 'smooth'});
-    }
+    // const scrollToComments = function() {
+    //     window.scrollTo({top: leaderboardScroll.current.offsetTop, behavior: 'smooth'});
+        
+    // }
     
     return (
         <div className="wrapper">
@@ -74,10 +76,11 @@ function UserInfoForm({finalScore}) {
 
                 <p>Your final score is {finalScore}</p>
 
-                <button type="submit"
+                {/* <button type="submit"
                 onClick={scrollToComments}>
                     Get your score on the board!
-                </button>
+                </button> */}
+                <button onClick={() => window.location.reload(false)}>Click to reload!</button>
             </form>
 
             <div ref={leaderboardScroll}>
