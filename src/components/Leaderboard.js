@@ -5,6 +5,8 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import database from '../firebase.js';
 import { ref, remove } from 'firebase/database';
 
+// renders leaderboard at game end, and populates with firebase data
+
 function Leaderboard ({leaderboard}) {
 
     const deleteComment = function(buttonToDeleteKey) {

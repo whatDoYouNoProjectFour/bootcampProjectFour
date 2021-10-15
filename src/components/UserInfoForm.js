@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from 'react';
 import { onValue, ref, push } from 'firebase/database';
 import Leaderboard from './Leaderboard.js';
 
+// firebase logic 
+
 function UserInfoForm({finalScore}) {
     const [leaderboard, setLeaderboard] = useState([]);
     const [userName, setUserName] = useState('');
