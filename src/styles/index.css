@@ -296,7 +296,6 @@ footer {
   display: grid;
   width: 100%;
   margin-top: auto;
-  color: #fff;
 }
 
 footer p {
@@ -306,6 +305,7 @@ footer p {
   transform: translate(-50%, -50%);
   line-height: 2rem;
   z-index: 1;
+  color: #fff;
 }
 
 /* =======
@@ -568,7 +568,8 @@ form button {
     top: 0;
     left: 0;
     transform: translate(0);
-    background-color: var(--blue);
+    color: var(--blue);
+    background-color: #E3F4F3;
   }
 
   .rc-progress-line {
@@ -614,8 +615,8 @@ form button {
 
   main {
     padding: 5% 0;
+  }
 }
-
 @media (max-width: 414px) {
   h1 {
     font-size: 3rem;

@@ -27,7 +27,7 @@ const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }
 						return (
 							<button
 								key={index}
-								onClick={(e) => { handleClick(e, individualWord) }}
+								onClick={() => { handleClick(individualWord) }}
 							>
 								{individualWord.word}
 							</button>
