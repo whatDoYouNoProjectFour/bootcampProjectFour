@@ -1,36 +1,48 @@
-import './App.css';
+// packages
 import axios from 'axios';
-import Footer from './Footer';
-import Score from './Score';
+// components
+import Header from './components/Header';
+import Footer from './components/Footer';
+import MainGame from './components/MainGame';
+import Score from './components/Score';
+import ProgressBar from './components/ProgressBar';
+import PlayGame from './components/PlayGame';
+// other files
+import './styles/index.css';
+import shuffle from './utilities.js';
+import words from './constants.js';
+// hooks
 import { useState, useEffect } from 'react';
 
+
+
 function App() {
-  // hardcoded array of 10 homophonous words
   // declare state variables 
   const [randomWords, setRandomWords] = useState([]);
+  const [startingWord, setStartingWord] = useState('');
   const [definition, setDefinition] = useState('');
   const [combinedWords, setCombinedWords] = useState([]);
-  // added score useState to update user score.
+  const [checkAnswer, setCheckAnswer] = useState(null);
   const [score, setScore] = useState(0);
-  // added round useState to re-render the useEffect that update new word for next question. This will update when user got the right answer.
-  const [round, setRound] = useState(0);
+  const [round, setRound] = useState(-1);
+  const [progress, setProgress] = useState(null);
+  const [serverDown, setServerDown] = useState(false);
+  const [startGame, setStartGame] = useState(false);
 
-  // function to randomly select an item from an array
-  const randomize = (randomArray) => {
-    const random = Math.floor(Math.random() * randomArray.length);
-    return random
-  }
 
-  // Setting the random words array in state when app loads for the first time
+  // effect to initiate starting states on page load
   useEffect(() => {
-    setRandomWords(['air', 'coarse', 'knot', 'principal', 'flour', 'idle', 'stationary', 'maid', 'prophet', 'their'])
+    const shuffledWords = shuffle([...words]);
+    const newWord = shuffledWords.pop();    
+    setRandomWords(shuffledWords);
+    setProgress(0);
+    setRound(0);
+    setStartingWord(newWord);
   }, []);
 
+  // secondary effect to make api call and get homophones and definintions of randomWords
   useEffect(() => {
-    const startingWord = randomWords[randomize(randomWords)];
-
-    if(startingWord !== undefined){
-      // get random word from hardcoded array to pass into axios query param
+    if (startingWord !== '' && startingWord !== undefined) {
       axios({
         url: 'https://api.datamuse.com/words',
         method: 'GET',
@@ -40,88 +52,123 @@ function App() {
           rel_hom: startingWord,
         }
       }).then(homophone => {
-        // filter returned words for words that have valid definitions and store in state
-        const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
-        setDefinition(wordWithDefinition[0].defs[0]);
+        console.log(homophone);
+        if (homophone.statusText === "OK") {
+          // filter returned homophones for words that have valid definitions and store in state
+          const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
+          setDefinition(wordWithDefinition[0].defs[0]);
 
-        const unshuffled = [wordWithDefinition[0].word, startingWord]
-        // map unshuffled array to produce a new array of shuffled objects that contain the word and definition
-        const shuffled = unshuffled.map(word => {
-          // condition to check if word has a definition (always the api result) and return an object with that property
-          if (wordWithDefinition[0].word === word) {
-            return ({
-              word,
-              definition: wordWithDefinition[0].defs[0],
-              sort: Math.random(),
-            })
-            // don't return definition property if it is the hardcoded original word
-          } else {
-            return ({
-              word,
-              sort: Math.random(),
-            })
-          }
-        })
-          // use sort method to randomly change order of objects in array
-          .sort((a, b) => a.sort - b.sort)
-
-        // store shuffled result in state
-        setCombinedWords(shuffled);
-        console.log(shuffled);
-      }).catch((err) => {
-        console.log(err)
+          const unsorted = [wordWithDefinition[0].word, startingWord]
+          // map unsorted array to produce a new array of sorted objects that contain the word and definition
+          const sorted = unsorted.map(word => {
+            // condition to check if word has a definition (always the api result) and return an object with that property
+            if (wordWithDefinition[0].word === word) {
+              return ({
+                word,
+                definition: wordWithDefinition[0].defs[0],
+                sort: Math.random(),
+              })
+              // don't return definition property if it is the hardcoded original word
+            } else {
+              return ({
+                word,
+                sort: Math.random(),
+              })
+            }
+          }).sort((homophone, startingWord) => homophone.sort - startingWord.sort);
+          setCombinedWords(sorted);
+        } else {
+          throw Error(homophone.statusText);
+        }
       })
-      // needs to be dependant on click event handler -- ADD IN ONCE FUNCTION IS FINISHED
+        .catch(error => {
+          setServerDown(true);
+        })
     }
-  }, [round, randomWords]);
- 
-  // event handler to evaluate if word matches definition and increases score
-  const handleClick = (e, individualWord) => {
+  }, [round, startingWord, randomWords]);
 
-    // Will add score when user got the right answer
-    // Also going to update round useState to re-render the useEffect
-    if (individualWord.definition) {
-      console.log('you got it!');
-      setScore(score + 1);
-      setRound(round + 1);
+
+  // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
+  const handleClick = (e, individualWord) => {
+    const generateNewWord = () => {
+      const copiedRandomWords = [...randomWords];
+      const newWord = copiedRandomWords.pop();
+      setStartingWord(newWord);
+      setRandomWords(copiedRandomWords);
+    }
+
+    const updateRound = () => {
+      setCombinedWords([]);
+      setProgress(progress + 10)
+      setTimeout(() => {
+        setDefinition('');
+        generateNewWord();
+        setCheckAnswer(null);
+        setRound(round + 1);
+      }, 600);
+    }
+
+    // user can only choose answer when checkAnser === null
+    if (checkAnswer === null) {
+      if (individualWord.definition) {
+        updateRound();
+        setCheckAnswer(true);
+        setScore(score + 1);
+      } else {
+        updateRound();
+        setCheckAnswer(false);
+
+      }
+      // need to be more fancy
     } else {
-      // Even user got wrong answer, update round to display next question.
-      console.log('wrong :(');
-      setRound(round + 1);
+      // alert("Don't even think about it")
     }
   }
 
   return (
     <div className="App">
-      <h1>What Do You No?</h1>
-
-      {/* display buttons until round 10 */}
+      <Header />
       {
-        round < 10 ? (
-          combinedWords.map((individualWord, index) => {
-            return (
-              <button key={index} onClick={(e) => { handleClick(e, individualWord) }}>
-                {individualWord.word}
-              </button>
-            )
-          })
-        ) : null
-      }
-      {/* display definition until round 10 */}
-      {
-        round < 10 ? (
-          <p>{definition}</p>
-        ) : null
+        serverDown === true ? (
+          <main className="serverDown">
+            <h2 className="serverDownHeader">Server Down</h2>
+            <p>Try later</p>
+          </main>
+        ) : (
+          <main>
+            {
+              startGame ? (
+                <div>
+                  <Score
+                    score={score}
+                    round={round}
+                    setRound={setRound}
+                    setStartGame={setStartGame}
+                  />
+                  <MainGame
+                    round={round}
+                    combinedWords={combinedWords}
+                    handleClick={handleClick}
+                    definition={definition}
+                    checkAnswer={checkAnswer}
+                  />
+                  <ProgressBar
+                    progress={progress}
+                  />
+                </div>
+              ) : (<PlayGame
+                setStartGame={setStartGame}
+                setRound={setRound}
+                round={round}
+              />)
+            }
+          </main>
+        )
       }
 
-      {/* added score property to update score */}
-      {/* added round,setRound property to update round and make ternary operator for contents */}
-      <Score
-        score={score}
-        round={round}
-        setRound={setRound}
-      />
+
       <Footer />
+
     </div>
   );
 }
