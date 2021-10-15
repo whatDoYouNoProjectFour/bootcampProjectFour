@@ -10,7 +10,7 @@ function UserInfoForm({finalScore}) {
     useEffect(function() {
 
         const dbRef = ref(database);
-
+        
         onValue(dbRef, function(databaseShot) {
 
             const data = databaseShot.val();
@@ -34,9 +34,7 @@ function UserInfoForm({finalScore}) {
         setUserName(event.target.value);
     }
 
-    const submitHandle = function(event) {
-        event.preventDefault();
-
+    const submitHandle = function() {
         if (userName && finalScore) {
             const dbRef = ref(database);
 
@@ -63,7 +61,9 @@ function UserInfoForm({finalScore}) {
     return (
         <div className="wrapper">
             <form onSubmit={submitHandle}>
-                <input type="text" 
+                <input 
+                required
+                type="text" 
                 id="userName" 
                 onChange={userNameChange}
                 value={userName}

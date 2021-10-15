@@ -7,6 +7,8 @@ import MainGame from './components/MainGame';
 import Score from './components/Score';
 import ProgressBar from './components/ProgressBar';
 import PlayGame from './components/PlayGame';
+// Router
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 // other files
 import './styles/index.css';
 import shuffle from './utilities.js';
@@ -27,7 +29,7 @@ function App() {
   const [round, setRound] = useState(-1);
   const [progress, setProgress] = useState(null);
   const [serverDown, setServerDown] = useState(false);
-  const [startGame, setStartGame] = useState(false);
+  // const [startGame, setStartGame] = useState(false);
 
 
   // effect to initiate starting states on page load
@@ -52,7 +54,6 @@ function App() {
           rel_hom: startingWord,
         }
       }).then(homophone => {
-        console.log(homophone);
         if (homophone.statusText === "OK") {
           // filter returned homophones for words that have valid definitions and store in state
           const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
@@ -127,50 +128,75 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      {
-        serverDown === true ? (
-          <main className="serverDown">
-            <h2 className="serverDownHeader">Server Down</h2>
-            <p>Try later</p>
-          </main>
-        ) : (
-          <main>
-            {
-              startGame ? (
-                <div>
-                  <Score
-                    score={score}
-                    round={round}
-                    setRound={setRound}
-                    setStartGame={setStartGame}
-                  />
-                  <MainGame
-                    round={round}
-                    combinedWords={combinedWords}
-                    handleClick={handleClick}
-                    definition={definition}
-                    checkAnswer={checkAnswer}
-                  />
-                  <ProgressBar
-                    progress={progress}
-                  />
-                </div>
-              ) : (<PlayGame
-                setStartGame={setStartGame}
-                setRound={setRound}
-                round={round}
-              />)
-            }
-          </main>
+      <Router>
+        
+        <Header />
+        {
+          serverDown === true ? (
+            <main className="serverDown">
+              <h2 className="serverDownHeader">Server Down</h2>
+              <p>Try later</p>
+            </main>
+          ) : 
+          (
+        <div>
+          <Route exact path="/">
+            <PlayGame />
+          </Route>
+
+          <Route path="/game">
+            <MainGame
+              round={round}
+              combinedWords={combinedWords}
+              handleClick={handleClick}
+              definition={definition}
+              checkAnswer={checkAnswer}
+            /> 
+            <ProgressBar
+              progress={progress}
+            />
+            <Score
+              score={score}
+              round={round}
+              setRound={setRound}
+            />
+          </Route> 
+        <Footer />
+      </div>
         )
       }
-
-
-      {/* <Footer /> */}
-
+        
+      </Router>
     </div>
-  );
-}
+    );
+  }
 
 export default App;
+// <main>
+//   {
+//     startGame ? (
+//       <div>
+//         <Score
+//           score={score}
+//           round={round}
+//           setRound={setRound}
+//           setStartGame={setStartGame}
+//         />
+//         <MainGame
+//           round={round}
+//           combinedWords={combinedWords}
+//           handleClick={handleClick}
+//           definition={definition}
+//           checkAnswer={checkAnswer}
+//         />
+//         <ProgressBar
+//           progress={progress}
+//         />
+//       </div>
+//     ) : (<PlayGame
+//       setStartGame={setStartGame}
+//       setRound={setRound}
+//       round={round}
+//     />)
+//   }
+// </main>

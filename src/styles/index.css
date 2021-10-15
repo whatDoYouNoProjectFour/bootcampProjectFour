@@ -254,13 +254,15 @@ a:focus {
   text-decoration: underline;
 }
 
+.startButton,
 button {
   display: inline-block;
   border: none;
   padding: 1rem 2rem;
   margin: 2rem 0.5rem;
+  color: var(--blue);
+  border-radius: 1.25rem;
   text-decoration: none;
-  color: var(--black);
   font-family: sans-serif;
   font-size: 1rem;
   cursor: pointer;
@@ -268,16 +270,20 @@ button {
   transition: all 200ms ease;
 }
 
+.startButton:hover,
+.startButton:focus,
 button:hover,
 button:focus {
   background: var(--neon);
 }
 
+.startButton:focus,
 button:focus {
   outline: 2px solid #fff;
   outline-offset: -2px;
 }
 
+.startButton:active,
 button:active {
   outline: none;
   background: var(--darkerNeon);
@@ -421,7 +427,7 @@ h3 {
   }
   .animation {
     opacity: 1;
-    animation: pop 1s steps(21, end) 0s 5;
+    animation: pop 1s steps(22, end) 0s 5;
     animation-iteration-count: infinite;
   }
 @keyframes pop {
@@ -515,7 +521,7 @@ form button {
   word-wrap: break-word;
 }
 .userNameTag {
-  width: 50%;
+  width: 33%;
   color: var(--lightTeal);
   text-transform: uppercase;
   text-align: left;
@@ -523,6 +529,12 @@ form button {
 
 .userScoreTag {
   color: var(--neon);
+}
+
+.delete {
+  margin: 0;
+  padding: .5rem 1rem;
+  align-self: center;
 }
 
 @media (max-width: 768px) {

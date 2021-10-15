@@ -1,10 +1,9 @@
 import UserInfoForm from './UserInfoForm';
-const Score = ({ round, score, setStartGame, setRound }) => {
-  // console.log(props);
-  // const startNewGame = () => {
-  //   setStartGame(false);
-  //   setRound(0);
-  // }
+
+const Score = ({ round, score, }) => {
+ 
+
+
   return (
     <>
       {/* display scroe until round 10 */}
@@ -18,8 +17,8 @@ const Score = ({ round, score, setStartGame, setRound }) => {
             <div className="inner animation">
               <h3>Game Over</h3>
             </div>
-          </div>
-          {/* <button onClick={startNewGame}>Start New Game</button> */}
+          </div>      
+          
           <UserInfoForm
             endRound={round}
             finalScore={score}
