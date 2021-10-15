@@ -8,7 +8,7 @@ import { ref, remove } from 'firebase/database';
 // renders leaderboard at game end, and populates with firebase data
 
 function Leaderboard ({leaderboard}) {
-
+    // Function created to delete node from firebase when the button is clicked
     const deleteComment = function(buttonToDeleteKey) {
         const specificNode = ref(database, buttonToDeleteKey);
     
@@ -25,6 +25,7 @@ function Leaderboard ({leaderboard}) {
                 </div>
 
             {
+                // Mapping through the array and print each user name and score on the leaderboard
                 leaderboard.map(function(individualScore) {
                     return (
                         <li key={individualScore.key}>
