@@ -5,7 +5,7 @@ const PlayGame = () => {
     <>
       <h2>Click to start!</h2>
 
-      <Link to={"game"}>Start!</Link>
+      <Link className="startButton" to={"game"}>Start!</Link>
     </>
   )
 }
