@@ -203,7 +203,6 @@ template {
   display: none;
 }
 
-
 /* Additional reset */
 
 * {
@@ -327,7 +326,6 @@ h2.serverDownHeader {
   margin: 0;
 }
 
-
 /* Title */
 
 header {
@@ -371,7 +369,6 @@ h1 span {
 /* Homescreen */
 .welcome {
   margin: 15px;
-  
 }
 
 .play {
@@ -414,56 +411,61 @@ footer p,
   color: var(--blue);
 }
 
-
 /* Endgame animation -- inspired by Michael, @baumicon on Codepen */
+
+.answerContainer {
+  position: relative;
+}
+
 h3 {
   font-size: 3rem;
   margin-top: 1rem;
   line-height: 1.7;
+  width: 400px;
 }
 
 .outer {
   width: 500px;
-  height: 500px;
+  height: 600px;
   position: absolute;
-  top: 50%;
+  top: 26%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png') no-repeat top left;
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png")
+    no-repeat top left;
   opacity: 0;
 }
 
 .inner {
-    width: 300px;
-    height: 300px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png') no-repeat top left;
-    opacity: 0;
-  }
-
-  .animation {
-    opacity: 1;
-    animation: pop 1s steps(21, end) 0s 5;
-    animation-iteration-count: infinite;
-  }
-
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png")
+    no-repeat top left;
+  opacity: 0;
+}
+.animation {
+  opacity: 1;
+  animation: pop 1s steps(22, end) 0s 5;
+  animation-iteration-count: infinite;
+}
 @keyframes pop {
   0% {
-        opacity: 1;
-        background-position: 0 0;
-        transform: translate(-50%, -50%);
-        color: var(--neon);
+    opacity: 1;
+    background-position: 0 0;
+    transform: translate(-50%, -50%);
+    color: var(--neon);
   }
   90% {
-        opacity: 0.8;
+    opacity: 0.8;
   }
   100% {
-        opacity: 0;
-        background-position: -3150px 0;
-        transform: translate(-50%, -50%);
+    opacity: 0;
+    background-position: -3150px 0;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -476,7 +478,7 @@ form {
   position: relative;
 }
 
-form input[type=text] {
+form input[type="text"] {
   background: none;
   border: 2px solid var(--darkerNeon);
   border-radius: 1rem;
@@ -484,7 +486,7 @@ form input[type=text] {
 }
 
 form label {
-  position:absolute;
+  position: absolute;
   left: 40%;
   top: 1.3rem;
   font-size: 1rem;
@@ -492,15 +494,15 @@ form label {
   transition: all 0.5s ease;
 }
 
-form input[type=text]:focus~label {
+form input[type="text"]:focus ~ label {
   color: var(--darkerNeon);
-  top: .3rem;
+  top: 0.3rem;
   font-size: 1rem;
   background-color: var(--lightTeal);
 }
 
 form p {
-  margin: 1rem 0
+  margin: 1rem 0;
 }
 
 form button {
@@ -552,10 +554,19 @@ form button {
 
 .delete {
   margin: 0;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   align-self: center;
 }
 
+/* ====
+Media
+==== */
+
+@media (max-width: 1156px) {
+  .outer {
+    top: 39%;
+  }
+}
 
 @media (max-width: 845px) {
   form {
@@ -570,11 +581,29 @@ form button {
   .userScoreList {
     margin: 0;
   }
+
+  /* =====
+  animation
+  ======== */
+
+  .outer {
+    top: 41%;
+  }
 }
 
-@media (max-width: 580px){
+@media (max-width: 580px) {
   h1 {
     font-size: 4rem;
+  }
+
+  .outer {
+    top: 35%;
+  }
+}
+
+@media (max-width: 513px) {
+  .outer {
+    top: 46%;
   }
 }
 
@@ -585,5 +614,13 @@ form button {
 
   form label {
     left: 42%;
+  }
+
+  /* =====
+  animation
+  ======== */
+
+  .outer {
+    top: 41%;
   }
 }
