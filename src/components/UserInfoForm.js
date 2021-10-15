@@ -35,8 +35,6 @@ function UserInfoForm({finalScore}) {
     }
 
     const submitHandle = function(event) {
-        event.preventDefault();
-
         if (userName && finalScore) {
             const dbRef = ref(database);
 
@@ -68,7 +66,7 @@ function UserInfoForm({finalScore}) {
 
             <button type="submit"
             onClick={submitHandle}>
-                Get your score on the board!
+                Submit your name and play again!
             </button>
             </form>
 

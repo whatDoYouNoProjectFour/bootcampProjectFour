@@ -2,11 +2,11 @@ import UserInfoForm from './UserInfoForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const Score = ({ round, score, setStartGame, setRound }) => {
-  // console.log(props);
-  const startNewGame = () => {
-    setStartGame(false);
-    setRound(0);
+  const handleSubmit = () => {
+    console.log('refreshed');
   }
+
+
   return (
     <>
       {/* display scroe until round 10 */}
@@ -20,9 +20,7 @@ const Score = ({ round, score, setStartGame, setRound }) => {
             <div className="inner animation">
               <h3>Game Over</h3>
             </div>
-          </div>
-          <button onClick={startNewGame}>Start New Game</button>
- 
+          </div>      
           
           <UserInfoForm
             endRound={round}

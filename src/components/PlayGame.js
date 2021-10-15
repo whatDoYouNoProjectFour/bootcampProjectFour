@@ -5,14 +5,11 @@ const PlayGame = ({ setStartGame, setRound, round }) => {
     setStartGame(true);
   }
   return (
-    <Router>
-
-    <Route>
+    <>
       <h2>Click to start!</h2>
 
-      <Link to={"/"}>Start!</Link>
-    <Route/>
-    </Router>
+      <Link to={"game"}>Start!</Link>
+    </>
   )
 }
 
