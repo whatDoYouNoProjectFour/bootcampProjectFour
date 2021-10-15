@@ -16,8 +16,6 @@ import words from './constants.js';
 // hooks
 import { useState, useEffect } from 'react';
 
-
-
 function App() {
   // declare state variables 
   const [randomWords, setRandomWords] = useState([]);

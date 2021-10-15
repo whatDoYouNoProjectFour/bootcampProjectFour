@@ -486,8 +486,8 @@ form label {
   position:absolute;
   left: 40%;
   top: 1.3rem;
-  font-size: 1rem;
   color: var(--blue);
+  padding: 0 .25rem;
   transition: all 0.5s ease;
 }
 
@@ -529,6 +529,11 @@ form button {
   text-transform: uppercase;
 }
 
+.playersHeading {
+  width: 33%;
+  text-align: left;
+}
+
 .userScoreList li {
   background-color: #6056f9;
   border-radius: 1rem;
@@ -536,8 +541,10 @@ form button {
 
 .userScoreList li p {
   margin-bottom: 0;
+  padding: .5rem 0;
   word-wrap: break-word;
 }
+
 .userNameTag {
   width: 33%;
   color: var(--lightTeal);
@@ -556,7 +563,12 @@ form button {
 }
 
 
-@media (max-width: 845px) {
+@media (max-width: 855px) {
+
+  main {
+    height: 20rem;
+  }
+
   form {
     margin: 0;
   }
@@ -567,13 +579,36 @@ form button {
   }
 
   .userScoreList {
-    margin: 0;
+    margin: 2rem 0;
   }
 }
 
 @media (max-width: 580px){
   h1 {
     font-size: 4rem;
+  }
+  .userScoreList li {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .userScoreList li p,
+  .delete {
+    margin: .5rem 0;
+  }
+
+  .userNameTag {
+    width: 100%;
+    text-align: center;
+  }
+
+  .playersHeading,
+  .deleteHeading {
+    display: none;
+  }
+
+  .scoreHeading {
+    margin: 0 auto;
   }
 }
 
@@ -583,6 +618,6 @@ form button {
   }
 
   form label {
-    left: 42%;
+    left: 39%;
   }
 }

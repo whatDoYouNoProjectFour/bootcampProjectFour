@@ -17,8 +17,9 @@ function Leaderboard ({leaderboard}) {
         <div>
             <ul className="userScoreList">
                 <div className="ulHeadings">
-                    <h4>Players</h4>
-                    <h4>Score</h4>
+                    <h4 className="playersHeading">Players</h4>
+                    <h4 className="scoreHeading">Score</h4>
+                    <h4 className="deleteHeading">Delete</h4>
                 </div>
 
             {
