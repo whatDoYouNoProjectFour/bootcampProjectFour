@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+// homepage greeting when user first visits app
+
 const PlayGame = () => {
   return (
     <>

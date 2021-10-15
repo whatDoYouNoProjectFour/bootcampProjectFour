@@ -1,5 +1,8 @@
 import ProgressBar from "./ProgressBar";
 
+// renders footer credits and progress bar
+
+
 const Footer = ({progress}) => {
   return (
     <footer>

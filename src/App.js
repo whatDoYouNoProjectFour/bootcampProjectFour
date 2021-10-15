@@ -28,7 +28,6 @@ function App() {
   const [round, setRound] = useState(-1);
   const [progress, setProgress] = useState(null);
   const [serverDown, setServerDown] = useState(false);
-  // const [startGame, setStartGame] = useState(false);
 
 
   // effect to initiate starting states on page load
@@ -41,7 +40,7 @@ function App() {
     setStartingWord(newWord);
   }, []);
 
-  // secondary effect to make api call and get homophones and definintions of randomWords
+  // secondary effect to make api call and get homophones and definitions of randomWords
   useEffect(() => {
     if (startingWord !== '' && startingWord !== undefined) {
       axios({
@@ -77,19 +76,22 @@ function App() {
             }
           }).sort((homophone, startingWord) => homophone.sort - startingWord.sort);
           setCombinedWords(sorted);
+          
+        // error handling if api status does not equal "OK"
         } else {
-          throw Error(homophone.statusText);
+          throw Error();
         }
       })
-        .catch(error => {
+        .catch(() => {
           setServerDown(true);
         })
     }
   }, [round, startingWord, randomWords]);
 
 
-  // event handler to pop another newWord from randomWords array and evaluate if word matches definition 
-  const handleClick = (e, individualWord) => {
+  // event handler whenever word button is clicked
+  const handleClick = individualWord => {
+    // function to get another newWord
     const generateNewWord = () => {
       const copiedRandomWords = [...randomWords];
       const newWord = copiedRandomWords.pop();
@@ -97,9 +99,10 @@ function App() {
       setRandomWords(copiedRandomWords);
     }
 
+    // function to update states when round changes
     const updateRound = () => {
       setCombinedWords([]);
-      setProgress(progress + 10)
+      setProgress(progress + 10);
       setTimeout(() => {
         setDefinition('');
         generateNewWord();
@@ -108,7 +111,7 @@ function App() {
       }, 600);
     }
 
-    // user can only choose answer when checkAnser === null
+    // condition to assess answer
     if (checkAnswer === null) {
       if (individualWord.definition) {
         updateRound();
@@ -117,18 +120,13 @@ function App() {
       } else {
         updateRound();
         setCheckAnswer(false);
-
       }
-      // need to be more fancy
-    } else {
-      // alert("Don't even think about it")
-    }
+    } 
   }
 
   return (
     <div className="App">
       <Router>
-
         <Header />
         {
           serverDown === true ? (
@@ -136,34 +134,31 @@ function App() {
               <h2 className="serverDownHeader">Server Down</h2>
               <p>Try later</p>
             </main>
-          ) :
-            (
-              <main>
-                <Route exact path="/">
-                  <PlayGame />
-                </Route>
+          ) : (
+                <main>
+                  <Route exact path="/">
+                    <PlayGame />
+                  </Route>
 
-                <Route path="/game">
-                  <MainGame
-                    round={round}
-                    combinedWords={combinedWords}
-                    handleClick={handleClick}
-                    definition={definition}
-                    checkAnswer={checkAnswer}
-                  />
-                  <Score
-                    score={score}
-                    round={round}
-                    setRound={setRound}
-                  />
-                </Route>
-              </main>
+                  <Route path="/game">
+                    <MainGame
+                      round={round}
+                      combinedWords={combinedWords}
+                      handleClick={handleClick}
+                      definition={definition}
+                      checkAnswer={checkAnswer}
+                    />
+                    <Score
+                      score={score}
+                      round={round}
+                      setRound={setRound}
+                    />
+                  </Route>
+                </main>
             )
         }
         <Footer progress={progress} />
-
       </Router>
-
     </div>
   );
 }
