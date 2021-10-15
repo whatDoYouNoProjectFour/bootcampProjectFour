@@ -1,10 +1,12 @@
 
 const MainGame = ({ round, combinedWords, handleClick, definition, checkAnswer }) => {
 
+// renders JSX for main pieces of the game
+
+
 	return (
 		<div className="wrapper">
 			{
-				// user can only see this message whene checkAnser true or false
 				checkAnswer === null ? null : ( 
 					<>
 						{
