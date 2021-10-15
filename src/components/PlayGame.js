@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 const PlayGame = ({ setStartGame, setRound, round }) => {
     const startNewGame = () => {
@@ -7,7 +8,8 @@ const PlayGame = ({ setStartGame, setRound, round }) => {
     return (
         <>
             <h2>Click to start!</h2>
-            <button onClick={startNewGame}>Start!</button>
+            {/* <button onClick={startNewGame}>Start!</button> */}
+            <Link path="/maingame">Start!</Link>
         </>
     )
 }
