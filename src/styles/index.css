@@ -417,10 +417,6 @@ footer p,
 
 /* Endgame animation -- inspired by Michael, @baumicon on Codepen */
 
-.answerContainer {
-  position: relative;
-}
-
 h3 {
   font-size: 3rem;
   margin-top: 1rem;
@@ -430,9 +426,9 @@ h3 {
 
 .outer {
   width: 500px;
-  height: 600px;
-  position: absolute;
-  top: 26%;
+  position: relative;
+  /* height: 600px; */
+  /* top: 26%; */
   left: 50%;
   transform: translate(-50%, -50%);
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png")
