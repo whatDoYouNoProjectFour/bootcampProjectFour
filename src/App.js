@@ -152,9 +152,6 @@ function App() {
                     definition={definition}
                     checkAnswer={checkAnswer}
                   />
-                  <ProgressBar
-                    progress={progress}
-                  />
                   <Score
                     score={score}
                     round={round}
@@ -164,7 +161,7 @@ function App() {
               </main>
             )
         }
-        <Footer />
+        <Footer progress={progress} />
 
       </Router>
 
