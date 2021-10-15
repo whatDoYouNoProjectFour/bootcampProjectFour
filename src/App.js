@@ -31,7 +31,7 @@ function App() {
   const [round, setRound] = useState(-1);
   const [progress, setProgress] = useState(null);
   const [serverDown, setServerDown] = useState(false);
-  const [startGame, setStartGame] = useState(false);
+  // const [startGame, setStartGame] = useState(false);
 
 
   // effect to initiate starting states on page load
@@ -143,11 +143,7 @@ function App() {
           (
         <div>
           <Route exact path="/">
-            <PlayGame
-              setStartGame={setStartGame}
-              setRound={setRound}
-              round={round}
-            />
+            <PlayGame />
           </Route>
 
           <Route path="/game">
@@ -165,7 +161,6 @@ function App() {
               score={score}
               round={round}
               setRound={setRound}
-              setStartGame={setStartGame}
             />
           </Route> 
         <Footer />

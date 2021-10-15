@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const PlayGame = ({ setStartGame, setRound, round }) => {
-  const startNewGame = () => {
-    setStartGame(true);
-  }
+const PlayGame = () => {
   return (
     <>
       <h2>Click to start!</h2>

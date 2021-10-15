@@ -1,10 +1,7 @@
 import UserInfoForm from './UserInfoForm';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-const Score = ({ round, score, setStartGame, setRound }) => {
-  const handleSubmit = () => {
-    console.log('refreshed');
-  }
+const Score = ({ round, score, }) => {
+ 
 
 
   return (
