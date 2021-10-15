@@ -28,6 +28,7 @@ function App() {
   const [round, setRound] = useState(-1);
   const [progress, setProgress] = useState(null);
   const [serverDown, setServerDown] = useState(false);
+  const [startNewGame, setStartNewGame] = useState(false);
 
 
   // effect to initiate starting states on page load
@@ -38,7 +39,7 @@ function App() {
     setProgress(0);
     setRound(0);
     setStartingWord(newWord);
-  }, []);
+  }, [startNewGame]);
 
   // secondary effect to make api call and get homophones and definitions of randomWords
   useEffect(() => {
@@ -76,8 +77,8 @@ function App() {
             }
           }).sort((homophone, startingWord) => homophone.sort - startingWord.sort);
           setCombinedWords(sorted);
-          
-        // error handling if api status does not equal "OK"
+
+          // error handling if api status does not equal "OK"
         } else {
           throw Error();
         }
@@ -121,7 +122,7 @@ function App() {
         updateRound();
         setCheckAnswer(false);
       }
-    } 
+    }
   }
 
   return (
@@ -135,27 +136,30 @@ function App() {
               <p>Try later</p>
             </main>
           ) : (
-                <main>
-                  <Route exact path="/">
-                    <PlayGame />
-                  </Route>
+            <main>
+              <Route exact path="/">
+                <PlayGame />
+              </Route>
 
-                  <Route path="/game">
-                    <MainGame
-                      round={round}
-                      combinedWords={combinedWords}
-                      handleClick={handleClick}
-                      definition={definition}
-                      checkAnswer={checkAnswer}
-                    />
-                    <Score
-                      score={score}
-                      round={round}
-                      setRound={setRound}
-                    />
-                  </Route>
-                </main>
-            )
+              <Route path="/game">
+                <MainGame
+                  round={round}
+                  combinedWords={combinedWords}
+                  handleClick={handleClick}
+                  definition={definition}
+                  checkAnswer={checkAnswer}
+                />
+                <Score
+                  score={score}
+                  setScore={setScore}
+                  round={round}
+                  setRound={setRound}
+                  startNewGame={startNewGame}
+                  setStartNewGame={setStartNewGame}
+                />
+              </Route>
+            </main>
+          )
         }
         <Footer progress={progress} />
       </Router>

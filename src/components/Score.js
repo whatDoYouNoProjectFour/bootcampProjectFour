@@ -1,8 +1,8 @@
 import UserInfoForm from './UserInfoForm';
 
-const Score = ({ round, score, }) => {
+const Score = ({ round, score, setScore, setRound, startNewGame, setStartNewGame }) => {
 
-// component updates score if round is less than 10, and otherwise displays endgame message
+  // component updates score if round is less than 10, and otherwise displays endgame message
 
 
   return (
@@ -22,6 +22,10 @@ const Score = ({ round, score, }) => {
           <UserInfoForm
             endRound={round}
             finalScore={score}
+            setScore={setScore}
+            setRound={setRound}
+            startNewGame={startNewGame}
+            setStartNewGame={setStartNewGame}
           />
         </div>
       )}
