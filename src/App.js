@@ -35,7 +35,7 @@ function App() {
   // effect to initiate starting states on page load
   useEffect(() => {
     const shuffledWords = shuffle([...words]);
-    const newWord = shuffledWords.pop();    
+    const newWord = shuffledWords.pop();
     setRandomWords(shuffledWords);
     setProgress(0);
     setRound(0);
@@ -129,7 +129,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        
+
         <Header />
         {
           serverDown === true ? (
@@ -137,39 +137,40 @@ function App() {
               <h2 className="serverDownHeader">Server Down</h2>
               <p>Try later</p>
             </main>
-          ) : 
-          (
-        <div>
-          <Route exact path="/">
-            <PlayGame />
-          </Route>
+          ) :
+            (
+              <main>
+                <Route exact path="/">
+                  <PlayGame />
+                </Route>
 
-          <Route path="/game">
-            <MainGame
-              round={round}
-              combinedWords={combinedWords}
-              handleClick={handleClick}
-              definition={definition}
-              checkAnswer={checkAnswer}
-            /> 
-            <ProgressBar
-              progress={progress}
-            />
-            <Score
-              score={score}
-              round={round}
-              setRound={setRound}
-            />
-          </Route> 
+                <Route path="/game">
+                  <MainGame
+                    round={round}
+                    combinedWords={combinedWords}
+                    handleClick={handleClick}
+                    definition={definition}
+                    checkAnswer={checkAnswer}
+                  />
+                  <ProgressBar
+                    progress={progress}
+                  />
+                  <Score
+                    score={score}
+                    round={round}
+                    setRound={setRound}
+                  />
+                </Route>
+              </main>
+            )
+        }
         <Footer />
-      </div>
-        )
-      }
-        
+
       </Router>
+
     </div>
-    );
-  }
+  );
+}
 
 export default App;
 // <main>
