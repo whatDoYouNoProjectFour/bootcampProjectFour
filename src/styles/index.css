@@ -296,7 +296,6 @@ footer {
   display: grid;
   width: 100%;
   margin-top: auto;
-  color: #fff;
 }
 
 footer p {
@@ -306,6 +305,7 @@ footer p {
   transform: translate(-50%, -50%);
   line-height: 2rem;
   z-index: 1;
+  color: #fff;
 }
 
 /* =======
@@ -558,13 +558,26 @@ form button {
   align-self: center;
 }
 
-/* ====
-Media
-==== */
+@media (max-width: 1334px) {
+  footer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 
-@media (max-width: 1156px) {
-  .outer {
-    top: 39%;
+  footer p {
+    top: 0;
+    left: 0;
+    transform: translate(0);
+    color: var(--blue);
+    background-color: #E3F4F3;
+  }
+
+  .rc-progress-line {
+    z-index: 1;
+  }
+
+  .userScoreList {
+    margin: 2rem 5rem;
   }
 }
 
@@ -576,6 +589,10 @@ Media
   form label {
     left: 37%;
     top: 1.4rem;
+  }
+
+  main {
+    padding: 5% 0;
   }
 
   .userScoreList {
@@ -596,17 +613,10 @@ Media
     font-size: 4rem;
   }
 
-  .outer {
-    top: 35%;
+  main {
+    padding: 5% 0;
   }
 }
-
-@media (max-width: 513px) {
-  .outer {
-    top: 46%;
-  }
-}
-
 @media (max-width: 414px) {
   h1 {
     font-size: 3rem;
@@ -616,11 +626,19 @@ Media
     left: 42%;
   }
 
-  /* =====
-  animation
-  ======== */
+  button {
+    margin: 1rem 2rem;
+  }
 
-  .outer {
-    top: 41%;
+  main {
+    padding: 3rem 0;
+  }
+
+  .wrapper button:nth-of-type(2) {
+    margin-bottom: 3rem;
+  }
+
+  footer p {
+    font-size: 0.8rem;
   }
 }
