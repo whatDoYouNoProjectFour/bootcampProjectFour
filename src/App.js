@@ -5,7 +5,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import MainGame from './components/MainGame';
 import Score from './components/Score';
-import ProgressBar from './components/ProgressBar';
 import PlayGame from './components/PlayGame';
 // Router
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -170,31 +169,3 @@ function App() {
 }
 
 export default App;
-// <main>
-//   {
-//     startGame ? (
-//       <div>
-//         <Score
-//           score={score}
-//           round={round}
-//           setRound={setRound}
-//           setStartGame={setStartGame}
-//         />
-//         <MainGame
-//           round={round}
-//           combinedWords={combinedWords}
-//           handleClick={handleClick}
-//           definition={definition}
-//           checkAnswer={checkAnswer}
-//         />
-//         <ProgressBar
-//           progress={progress}
-//         />
-//       </div>
-//     ) : (<PlayGame
-//       setStartGame={setStartGame}
-//       setRound={setRound}
-//       round={round}
-//     />)
-//   }
-// </main>

@@ -556,6 +556,28 @@ form button {
   align-self: center;
 }
 
+@media (max-width: 1334px) {
+  footer {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  footer p {
+    top: 0;
+    left: 0;
+    transform: translate(0);
+    background-color: var(--blue);
+  }
+
+  .rc-progress-line {
+    z-index: 1;
+  }
+
+  .userScoreList {
+    margin: 2rem 5rem;
+  }
+}
+
 
 @media (max-width: 845px) {
   form {
@@ -567,6 +589,10 @@ form button {
     top: 1.4rem;
   }
 
+  main {
+    padding: 5% 0;
+  }
+
   .userScoreList {
     margin: 0;
   }
@@ -575,6 +601,10 @@ form button {
 @media (max-width: 580px){
   h1 {
     font-size: 4rem;
+  }
+
+  main {
+    padding: 5% 0;
   }
 }
 
@@ -585,5 +615,21 @@ form button {
 
   form label {
     left: 42%;
+  }
+
+  button {
+    margin: 1rem 2rem;
+  }
+
+  main {
+    padding: 3rem 0;
+  }
+
+  .wrapper button:nth-of-type(2) {
+    margin-bottom: 3rem;
+  }
+
+  footer p {
+    font-size: 0.8rem;
   }
 }
