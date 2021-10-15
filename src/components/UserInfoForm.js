@@ -1,5 +1,5 @@
 import database from '../firebase.js'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { onValue, ref, push } from 'firebase/database';
 import Leaderboard from './Leaderboard.js';
 
@@ -23,9 +23,9 @@ function UserInfoForm({finalScore}) {
                     userName: data[property].username,
                     userScore: data[property].score
                 }
-
-                leaderboardArray.unshift(userInfoObject);
+                    leaderboardArray.unshift(userInfoObject);
             }
+
             setLeaderboard(leaderboardArray);
         })
     }, []);
@@ -53,10 +53,16 @@ function UserInfoForm({finalScore}) {
             console.log(`Please finish`);
         }
     }
+
+    const leaderboardScroll = useRef(null);
+
+    const scrollToComments = function() {
+        window.scrollTo({top: leaderboardScroll.current.offsetTop, behavior: 'smooth'});
+    }
     
     return (
         <div className="wrapper">
-            <form>
+            <form onSubmit={submitHandle}>
                 <input type="text" 
                 id="userName" 
                 onChange={userNameChange}
@@ -67,13 +73,15 @@ function UserInfoForm({finalScore}) {
                 <p>Your final score is {finalScore}</p>
 
                 <button type="submit"
-                onClick={submitHandle}>
+                onClick={scrollToComments}>
                     Get your score on the board!
                 </button>
             </form>
 
-            <Leaderboard 
-            leaderboard={leaderboard}/>
+            <div ref={leaderboardScroll}>
+                <Leaderboard 
+                leaderboard={leaderboard}/>
+            </div>
             
         </div>
     )
