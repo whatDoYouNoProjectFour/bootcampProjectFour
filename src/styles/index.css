@@ -321,6 +321,7 @@ h2.serverDownHeader {
   margin: 0;
 }
 
+
 /* Title */
 
 header {
@@ -359,6 +360,15 @@ h1 span {
   border-radius: 25px;
   line-height: 3.5rem;
   height: 2.5rem;
+}
+
+/* Homescreen */
+.welcome {
+  margin: 15px;
+}
+
+.playButton {
+  margin-top: 30px;
 }
 
 /* Progress Bar */
@@ -528,7 +538,7 @@ form button {
   color: var(--neon);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 845px) {
   form {
     margin: 0;
   }
@@ -543,7 +553,17 @@ form button {
   }
 }
 
+@media (max-width: 580px){
+  h1 {
+    font-size: 4rem;
+  }
+}
+
 @media (max-width: 414px) {
+  h1 {
+    font-size: 3rem;
+  }
+
   form label {
     left: 42%;
   }
