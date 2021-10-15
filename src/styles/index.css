@@ -236,6 +236,8 @@ body {
 .App {
   /* min-height: 100vh; */
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper {
@@ -296,6 +298,7 @@ footer {
   width: 100%;
   height: 7%;
   /* background: var(--blue); */
+
 }
 
 footer p {
@@ -324,12 +327,13 @@ h2.serverDownHeader {
   margin: 0;
 }
 
+
 /* Title */
 
 header {
   background: white;
   width: 100%;
-  padding: 20px 0;
+  padding-bottom: 20px;
   position: relative;
 }
 
@@ -364,6 +368,16 @@ h1 span {
   height: 2.5rem;
 }
 
+/* Homescreen */
+.welcome {
+  margin: 15px;
+  
+}
+
+.play {
+  margin: 30px 0;
+}
+
 /* Progress Bar */
 
 .rc-progress-line {
@@ -392,12 +406,15 @@ h1 span {
 }
 
 .score {
+  margin-top: 45px;
+}
+
+.score span {
   color: var(--blue);
 }
 
 
 /* Endgame animation -- inspired by Michael, @baumicon on Codepen */
-
 h3 {
   font-size: 3rem;
   margin-top: 1rem;
@@ -425,11 +442,13 @@ h3 {
     background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png') no-repeat top left;
     opacity: 0;
   }
+
   .animation {
     opacity: 1;
     animation: pop 1s steps(21, end) 0s 5;
     animation-iteration-count: infinite;
   }
+
 @keyframes pop {
   0% {
         opacity: 1;
@@ -455,7 +474,6 @@ form {
   padding: 1rem;
   position: relative;
 }
-
 
 form input[type=text] {
   background: none;
@@ -537,7 +555,8 @@ form button {
   align-self: center;
 }
 
-@media (max-width: 768px) {
+
+@media (max-width: 845px) {
   form {
     margin: 0;
   }
@@ -552,7 +571,17 @@ form button {
   }
 }
 
+@media (max-width: 580px){
+  h1 {
+    font-size: 4rem;
+  }
+}
+
 @media (max-width: 414px) {
+  h1 {
+    font-size: 3rem;
+  }
+
   form label {
     left: 42%;
   }
