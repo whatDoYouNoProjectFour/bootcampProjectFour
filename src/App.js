@@ -5,7 +5,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import MainGame from './components/MainGame';
 import Score from './components/Score';
-import ProgressBar from './components/ProgressBar';
 import PlayGame from './components/PlayGame';
 // Router
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -152,9 +151,6 @@ function App() {
                     definition={definition}
                     checkAnswer={checkAnswer}
                   />
-                  <ProgressBar
-                    progress={progress}
-                  />
                   <Score
                     score={score}
                     round={round}
@@ -164,7 +160,7 @@ function App() {
               </main>
             )
         }
-        <Footer />
+        <Footer progress={progress} />
 
       </Router>
 
