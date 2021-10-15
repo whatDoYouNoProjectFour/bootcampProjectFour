@@ -6,13 +6,12 @@ const Score = ({ round, score, }) => {
 
   return (
     <>
-      {/* display scroe until round 10 */}
       {round < 10 ? (
-        <h2>Score: <span className="score">{score}</span></h2>
+        <h2 className="score">Score: <span>{score}</span></h2>
 
       ) : (
-        <div className="animationContainer">
-          <h2>Score: <span className="score">{score}</span></h2>
+        <div>
+          <h2 className="score"> Score: <span>{score}</span></h2>
           <div className="outer animation">
             <div className="inner animation">
               <h3>Game Over</h3>
@@ -25,7 +24,6 @@ const Score = ({ round, score, }) => {
           />
         </div>
       )}
-
 
     </>
 

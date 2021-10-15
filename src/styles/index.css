@@ -235,6 +235,8 @@ body {
 .App {
   /* min-height: 100vh; */
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper {
@@ -253,13 +255,15 @@ a:focus {
   text-decoration: underline;
 }
 
+.startButton,
 button {
   display: inline-block;
   border: none;
   padding: 1rem 2rem;
   margin: 2rem 0.5rem;
+  color: var(--blue);
+  border-radius: 1.25rem;
   text-decoration: none;
-  color: var(--black);
   font-family: sans-serif;
   font-size: 1rem;
   cursor: pointer;
@@ -267,16 +271,20 @@ button {
   transition: all 200ms ease;
 }
 
+.startButton:hover,
+.startButton:focus,
 button:hover,
 button:focus {
   background: var(--neon);
 }
 
+.startButton:focus,
 button:focus {
   outline: 2px solid #fff;
   outline-offset: -2px;
 }
 
+.startButton:active,
 button:active {
   outline: none;
   background: var(--darkerNeon);
@@ -322,7 +330,7 @@ h2.serverDownHeader {
 header {
   background: white;
   width: 100%;
-  padding: 20px 0;
+  padding-bottom: 20px;
   position: relative;
 }
 
@@ -357,6 +365,15 @@ h1 span {
   height: 2.5rem;
 }
 
+/* Homescreen */
+.welcome {
+  margin: 15px;
+}
+
+.play {
+  margin: 30px 0;
+}
+
 /* Progress Bar */
 
 .rc-progress-line {
@@ -385,6 +402,10 @@ h1 span {
 }
 
 .score {
+  margin-top: 45px;
+}
+
+.score span {
   color: var(--blue);
 }
 
@@ -519,7 +540,7 @@ form button {
   word-wrap: break-word;
 }
 .userNameTag {
-  width: 50%;
+  width: 33%;
   color: var(--lightTeal);
   text-transform: uppercase;
   text-align: left;
@@ -529,7 +550,13 @@ form button {
   color: var(--neon);
 }
 
-@media (max-width: 768px) {
+.delete {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  align-self: center;
+}
+
+@media (max-width: 845px) {
   form {
     margin: 0;
   }
@@ -552,7 +579,17 @@ form button {
   }
 }
 
+@media (max-width: 580px) {
+  h1 {
+    font-size: 4rem;
+  }
+}
+
 @media (max-width: 414px) {
+  h1 {
+    font-size: 3rem;
+  }
+
   form label {
     left: 42%;
   }
