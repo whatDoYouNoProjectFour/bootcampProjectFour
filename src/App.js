@@ -29,7 +29,7 @@ function App() {
   const [round, setRound] = useState(-1);
   const [progress, setProgress] = useState(null);
   const [serverDown, setServerDown] = useState(false);
-  const [startGame, setStartGame] = useState(false);
+  // const [startGame, setStartGame] = useState(false);
 
 
   // effect to initiate starting states on page load
@@ -54,7 +54,6 @@ function App() {
           rel_hom: startingWord,
         }
       }).then(homophone => {
-        console.log(homophone);
         if (homophone.statusText === "OK") {
           // filter returned homophones for words that have valid definitions and store in state
           const wordWithDefinition = homophone.data.filter(homophone => homophone.defs);
@@ -142,14 +141,10 @@ function App() {
           (
         <div>
           <Route exact path="/">
-            <PlayGame
-              setStartGame={setStartGame}
-              setRound={setRound}
-              round={round}
-            />
+            <PlayGame />
           </Route>
 
-          <Route path="/maingame">
+          <Route path="/game">
             <MainGame
               round={round}
               combinedWords={combinedWords}
@@ -164,7 +159,6 @@ function App() {
               score={score}
               round={round}
               setRound={setRound}
-              setStartGame={setStartGame}
             />
           </Route> 
         <Footer />
