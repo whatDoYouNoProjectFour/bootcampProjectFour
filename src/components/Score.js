@@ -11,7 +11,7 @@ const Score = ({ round, score, }) => {
         <h2>Score: <span className="score">{score}</span></h2>
 
       ) : (
-        <div>
+        <div className="animationContainer">
           <h2>Score: <span className="score">{score}</span></h2>
           <div className="outer animation">
             <div className="inner animation">
