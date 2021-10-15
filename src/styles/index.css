@@ -420,7 +420,7 @@ h3 {
   }
   .animation {
     opacity: 1;
-    animation: pop 1s steps(22, end) 0s 5;
+    animation: pop 1s steps(21, end) 0s 5;
     animation-iteration-count: infinite;
   }
 @keyframes pop {
@@ -483,9 +483,12 @@ form button {
 /* Leaderboard Styling */
 
 .userScoreList {
-  margin: 0 10rem;
+  margin: 2rem 10rem;
   border: 2px solid var(--darkerNeon);
   border-radius: 1rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 31rem;
 }
 
 .ulHeadings,
