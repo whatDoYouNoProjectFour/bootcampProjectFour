@@ -1,7 +1,7 @@
 import UserInfoForm from './UserInfoForm';
 
 const Score = ({ round, score, }) => {
- 
+
 
 
   return (
@@ -17,8 +17,8 @@ const Score = ({ round, score, }) => {
             <div className="inner animation">
               <h3>Game Over</h3>
             </div>
-          </div>      
-          
+          </div>
+
           <UserInfoForm
             endRound={round}
             finalScore={score}

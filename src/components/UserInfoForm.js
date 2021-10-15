@@ -57,9 +57,10 @@ function UserInfoForm({finalScore}) {
             <form>
             <label htmlFor="userName">Type your name</label>
             <input type="text" 
-            id="userName" 
-            onChange={userNameChange}
-            value={userName}
+              id="userName" 
+              onChange={userNameChange}
+              value={userName}
+              required
             />
 
             <p>Your final score: {finalScore}</p>
