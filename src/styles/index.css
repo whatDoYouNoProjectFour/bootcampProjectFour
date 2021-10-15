@@ -295,13 +295,8 @@ button:active {
 footer {
   display: grid;
   width: 100%;
-<<<<<<< HEAD
-  height: 7%;
-  /* background: var(--blue); */
-=======
   margin-top: auto;
   color: #fff;
->>>>>>> 01dbc5c0203a3a1d0df98febc132fef2f6f08737
 }
 
 footer p {
@@ -433,7 +428,7 @@ h3 {
   width: 500px;
   height: 600px;
   position: absolute;
-  top: 28%;
+  top: 26%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/107366/img_fireworks-frames-white.png")
@@ -563,6 +558,16 @@ form button {
   align-self: center;
 }
 
+/* ====
+Media
+==== */
+
+@media (max-width: 1156px) {
+  .outer {
+    top: 39%;
+  }
+}
+
 @media (max-width: 845px) {
   form {
     margin: 0;
@@ -589,6 +594,16 @@ form button {
 @media (max-width: 580px) {
   h1 {
     font-size: 4rem;
+  }
+
+  .outer {
+    top: 35%;
+  }
+}
+
+@media (max-width: 513px) {
+  .outer {
+    top: 46%;
   }
 }
 
