@@ -19,7 +19,7 @@ const Score = ({ round, score, setStartGame, setRound }) => {
               <h3>Game Over</h3>
             </div>
           </div>
-          {/* <button onClick={startNewGame}>Start New Game</button> */}
+      
           <UserInfoForm
             endRound={round}
             finalScore={score}
