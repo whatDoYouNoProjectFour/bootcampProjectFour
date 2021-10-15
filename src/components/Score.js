@@ -2,6 +2,7 @@ import UserInfoForm from './UserInfoForm';
 
 const Score = ({ round, score, }) => {
 
+// component updates score if round is less than 10, and otherwise displays endgame message
 
 
   return (
